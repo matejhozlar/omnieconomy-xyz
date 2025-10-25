@@ -44,7 +44,7 @@ function findEnvVarsInFile(filePath) {
  * variables, and writes them to a JS module as an array export.
  */
 function generateRequiredEnvVars(outputPath) {
-  const allFiles = glob.sync(["**/*.js"], {
+  const allFiles = glob.sync(["**/*.ts"], {
     cwd: SOURCE_DIR,
     ignore: [
       "node_modules/**",
