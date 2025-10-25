@@ -1,0 +1,50 @@
+// Brand
+$emerald-400: hsl(147, 55%, 52%); // main
+$emerald-500: hsl(147, 55%, 46%);
+$emerald-600: hsl(147, 55%, 39%);
+$emerald-700: hsl(147, 55%, 33%);
+
+$gold-400: hsl(43, 78%, 58%); // main accent
+$gold-500: hsl(43, 66%, 52%);
+$gold-600: hsl(43, 66%, 44%);
+
+// Neutrals
+$slate-950: hsl(160, 12%, 7%);
+$slate-900: hsl(160, 12%, 9%); // bg
+$slate-850: hsl(160, 12%, 11%);
+$slate-800: hsl(160, 12%, 13%); // surface-1
+$slate-750: hsl(160, 12%, 16%);
+$slate-700: hsl(160, 12%, 19%); // surface-2
+$slate-600: hsl(160, 10%, 26%); // borders
+$slate-500: hsl(160, 10%, 36%);
+$slate-400: hsl(160, 10%, 46%);
+$slate-300: hsl(160, 12%, 62%);
+$slate-200: hsl(160, 12%, 74%);
+$slate-100: hsl(160, 18%, 86%);
+$slate-050: hsl(160, 25%, 93%);
+
+// Status
+$green: hsl(145, 52%, 46%); // success
+$blue: hsl(213, 72%, 56%); // info
+$yellow: hsl(43, 90%, 60%); // warning
+$red: hsl(0, 76%, 58%); // danger
+
+// Elevation shadows
+$shadow-1: 0 1px 2px rgba(0, 0, 0, 0.25);
+$shadow-2: 0 6px 20px rgba(0, 0, 0, 0.25);
+
+// Radii & spacing
+$radius-sm: 8px;
+$radius: 12px;
+$radius-lg: 16px;
+
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+$space-10: 40px;
+$space-12: 48px;
+$space-16: 64px;
