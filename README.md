@@ -1,2 +1,1 @@
-# omnieconomy-xyz
-Web tool for OmniEconomy.
+# Work in progress
