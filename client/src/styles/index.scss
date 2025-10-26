@@ -47,3 +47,33 @@ html.scroll-override,
 body.scroll-override {
   scroll-behavior: auto !important;
 }
+
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: token(surface);
+  border-radius: palette.$radius;
+}
+
+::-webkit-scrollbar-thumb {
+  background: token(border-strong);
+  border-radius: palette.$radius;
+  border: 3px solid token(surface);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: palette.$grass-500;
+  }
+
+  &:active {
+    background: palette.$grass-600;
+  }
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: token(border-strong) token(surface);
+}

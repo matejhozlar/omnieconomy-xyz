@@ -1,21 +1,124 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   DollarSign,
   TrendingUp,
-  Store,
-  Coins,
-  LineChart,
   Building2,
-  ShoppingCart,
-  Briefcase,
   Settings,
+  Check,
+  Zap,
+  Calendar,
+  CreditCard,
+  Banknote,
+  Sparkles,
+  Clock,
+  Award,
+  Wand2,
+  Package,
+  Database,
 } from "lucide-react";
 import DownloadModal from "../../components/DownloadModal/DownloadModal";
+import { useDownloadStats, formatDownloads } from "./hooks/UseDownloadStats";
+import ROADMAP_ITEMS from "./utils/ROADMAP_ITEMS";
 import styles from "./Home.module.scss";
 
 export default function Home() {
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const { downloads, loading: downloadsLoading } = useDownloadStats();
+  const heroRef = useRef<HTMLElement>(null);
+  const statsRef = useRef<HTMLElement>(null);
+  const featuresRef = useRef<HTMLElement>(null);
+  const roadmapRef = useRef<HTMLElement>(null);
+  const compatRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -100px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.animate);
+        }
+      });
+    }, observerOptions);
+
+    const refs = [
+      heroRef,
+      statsRef,
+      featuresRef,
+      roadmapRef,
+      compatRef,
+      ctaRef,
+    ];
+    refs.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+
+    const featureCards = document.querySelectorAll(`.${styles.featureCard}`);
+    featureCards.forEach((card, index) => {
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add(styles.animateCard);
+              }, index * 100);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      cardObserver.observe(card);
+    });
+
+    const statCards = document.querySelectorAll(`.${styles.statCard}`);
+    statCards.forEach((card, index) => {
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add(styles.animateCard);
+              }, index * 150);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      cardObserver.observe(card);
+    });
+
+    const visualCards = document.querySelectorAll(`.${styles.visualCard}`);
+    visualCards.forEach((card, index) => {
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add(styles.animateCard);
+              }, index * 150);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      cardObserver.observe(card);
+    });
+
+    return () => {
+      refs.forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
+    };
+  }, []);
 
   const openDownloadModal = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -28,7 +131,7 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <section className={styles.hero}>
+      <section ref={heroRef} className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} />
@@ -76,47 +179,49 @@ export default function Home() {
         <div className={styles.heroVisual}>
           <div className={styles.visualCard}>
             <div className={styles.visualIcon}>
-              <DollarSign size={32} />
+              <CreditCard size={32} />
             </div>
-            <div className={styles.visualLabel}>Dynamic Pricing</div>
+            <div className={styles.visualLabel}>ATM System</div>
           </div>
           <div className={styles.visualCard}>
             <div className={styles.visualIcon}>
-              <LineChart size={32} />
+              <Banknote size={32} />
             </div>
-            <div className={styles.visualLabel}>Market Analytics</div>
+            <div className={styles.visualLabel}>Physical Currency</div>
           </div>
           <div className={styles.visualCard}>
             <div className={styles.visualIcon}>
-              <Store size={32} />
+              <Sparkles size={32} />
             </div>
-            <div className={styles.visualLabel}>Player Shops</div>
+            <div className={styles.visualLabel}>Mob Rewards</div>
           </div>
         </div>
       </section>
 
-      <section className={styles.stats}>
+      <section ref={statsRef} className={styles.stats}>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>2.5M+</div>
+            <div className={styles.statNumber}>
+              {downloadsLoading ? "..." : formatDownloads(downloads)}
+            </div>
             <div className={styles.statLabel}>Total Downloads</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>15K+</div>
-            <div className={styles.statLabel}>Active Servers</div>
+            <div className={styles.statNumber}>12+</div>
+            <div className={styles.statLabel}>Core Features</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>4.8★</div>
-            <div className={styles.statLabel}>Average Rating</div>
+            <div className={styles.statNumber}>8</div>
+            <div className={styles.statLabel}>Bill Denominations</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>50+</div>
-            <div className={styles.statLabel}>Features</div>
+            <div className={styles.statNumber}>100%</div>
+            <div className={styles.statLabel}>Open Source</div>
           </div>
         </div>
       </section>
 
-      <section className={styles.features}>
+      <section ref={featuresRef} className={styles.features}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Powerful Features</h2>
           <p className={styles.sectionDescription}>
@@ -126,52 +231,114 @@ export default function Home() {
         <div className={styles.featuresGrid}>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Coins size={40} />
+              <Building2 size={40} />
             </div>
-            <h3 className={styles.featureTitle}>Multi-Currency System</h3>
+            <h3 className={styles.featureTitle}>Virtual Banking System</h3>
             <p className={styles.featureDescription}>
-              Support for multiple currencies with custom exchange rates and
-              automatic conversion systems.
+              Store money virtually with deposit/withdraw commands and ATM
+              blocks with PIN protection.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Banknote size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>Physical Currency</h3>
+            <p className={styles.featureDescription}>
+              Eight bill denominations ($1-$1000) that can be deposited,
+              withdrawn, and traded physically.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <CreditCard size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>ATM Blocks</h3>
+            <p className={styles.featureDescription}>
+              Interactive ATM blocks with GUI for deposits, withdrawals, and
+              balance checking with keyboard navigation.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Sparkles size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>Mob Farming Rewards</h3>
+            <p className={styles.featureDescription}>
+              Mobs drop currency bills with configurable rates and daily caps to
+              prevent exploitation.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Clock size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>Playtime Rewards</h3>
+            <p className={styles.featureDescription}>
+              Automatic payouts for active playtime with daily caps and AFK
+              detection integration.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Award size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>Daily Rewards</h3>
+            <p className={styles.featureDescription}>
+              Claim daily login bonuses with the /daily command for consistent
+              player engagement.
             </p>
           </div>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
               <TrendingUp size={40} />
             </div>
-            <h3 className={styles.featureTitle}>Dynamic Market Prices</h3>
+            <h3 className={styles.featureTitle}>Lottery System</h3>
             <p className={styles.featureDescription}>
-              Prices adjust automatically based on supply and demand, creating a
-              realistic economy.
+              Server-wide lottery system where players bet and compete for the
+              total pot.
             </p>
           </div>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Building2 size={40} />
+              <DollarSign size={40} />
             </div>
-            <h3 className={styles.featureTitle}>Banking System</h3>
+            <h3 className={styles.featureTitle}>Balance Management</h3>
             <p className={styles.featureDescription}>
-              Players can deposit, withdraw, and earn interest on their savings
-              with customizable rates.
+              Comprehensive commands: /money, /pay, /baltop, /deposit, /withdraw
+              with cooldowns.
             </p>
           </div>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <ShoppingCart size={40} />
+              <Wand2 size={40} />
             </div>
-            <h3 className={styles.featureTitle}>Admin & Player Shops</h3>
+            <h3 className={styles.featureTitle}>
+              Capitalist Greed Enchantment
+            </h3>
             <p className={styles.featureDescription}>
-              Create global admin shops or let players set up their own stores
-              with custom pricing.
+              Weapon enchantment (3 levels) that increases currency drop chances
+              from mobs.
             </p>
           </div>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Briefcase size={40} />
+              <Package size={40} />
             </div>
-            <h3 className={styles.featureTitle}>Job System</h3>
+            <h3 className={styles.featureTitle}>Create Mod Integration</h3>
             <p className={styles.featureDescription}>
-              Players can take jobs, complete tasks, and earn money through
-              various activities.
+              Stock Ticker shopping list integration - use bank card to
+              auto-withdraw bills for purchases.
+            </p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <Database size={40} />
+            </div>
+            <h3 className={styles.featureTitle}>Automatic Backups</h3>
+            <p className={styles.featureDescription}>
+              Rolling backup system for economy data with configurable
+              retention.
             </p>
           </div>
           <div className={styles.featureCard}>
@@ -180,14 +347,60 @@ export default function Home() {
             </div>
             <h3 className={styles.featureTitle}>Highly Configurable</h3>
             <p className={styles.featureDescription}>
-              Extensive configuration options to customize every aspect to fit
-              your server's needs.
+              Extensive config options for every feature: rates, limits,
+              cooldowns, and toggles.
             </p>
           </div>
         </div>
       </section>
 
-      <section className={styles.compatibility}>
+      <section ref={roadmapRef} className={styles.roadmap}>
+        <div className={styles.roadmapContainer}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Roadmap</h2>
+            <p className={styles.sectionDescription}>
+              See what's coming next for OmniEconomy
+            </p>
+          </div>
+
+          <div className={styles.roadmapGrid}>
+            {ROADMAP_ITEMS.map((item, index) => (
+              <div key={index} className={styles.roadmapItem}>
+                <div className={styles.roadmapHeader}>
+                  <div
+                    className={`${styles.roadmapStatus} ${
+                      styles[`status-${item.status}`]
+                    }`}
+                  >
+                    {item.status === "completed" && (
+                      <>
+                        <Check size={16} />
+                        <span>Completed</span>
+                      </>
+                    )}
+                    {item.status === "in-progress" && (
+                      <>
+                        <Zap size={16} />
+                        <span>In Progress</span>
+                      </>
+                    )}
+                    {item.status === "planned" && (
+                      <>
+                        <Calendar size={16} />
+                        <span>Planned</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <h3 className={styles.roadmapTitle}>{item.title}</h3>
+                <p className={styles.roadmapDescription}>{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section ref={compatRef} className={styles.compatibility}>
         <div className={styles.compatCard}>
           <h2 className={styles.compatTitle}>Works With Your Setup</h2>
           <p className={styles.compatDescription}>
@@ -214,7 +427,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.cta}>
+      <section ref={ctaRef} className={styles.cta}>
         <div className={styles.ctaContent}>
           <h2 className={styles.ctaTitle}>Ready to Get Started?</h2>
           <p className={styles.ctaDescription}>
@@ -249,7 +462,7 @@ export default function Home() {
             <Link to="/docs">View Documentation</Link>
             <span>•</span>
             <a
-              href="https://github.com/matejhoz/omnieconomy"
+              href="https://github.com/matejhozlar/omnieconomy"
               target="_blank"
               rel="noopener noreferrer"
             >

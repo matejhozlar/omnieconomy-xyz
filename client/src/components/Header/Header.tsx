@@ -61,7 +61,7 @@ export default function Header() {
               Tools
             </Link>
             <a
-              href="https://github.com/matejhoz/omnieconomy"
+              href="https://github.com/matejhozlar/omnieconomy"
               className={styles.navLink}
               onClick={closeMenu}
               target="_blank"
