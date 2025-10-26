@@ -1,0 +1,555 @@
+@use "@/styles/themes" as *;
+
+.home {
+  width: 100%;
+}
+
+.hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: token(space-16) token(space-8);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: token(space-12);
+  align-items: center;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    padding: token(space-12) token(space-6);
+    gap: token(space-8);
+  }
+
+  @media (max-width: 640px) {
+    padding: token(space-10) token(space-4);
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: token(space-6);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: token(space-2);
+  padding: token(space-2) token(space-4);
+  background: token(surface-2);
+  border: 1px solid token(border);
+  border-radius: token(radius-lg);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: token(text-muted);
+  width: fit-content;
+}
+
+.badgeDot {
+  width: 8px;
+  height: 8px;
+  background: token(primary);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: token(text-strong);
+  letter-spacing: -0.03em;
+  margin: 0;
+
+  @media (max-width: 968px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 2.25rem;
+  }
+}
+
+.gradient {
+  background: linear-gradient(135deg, token(primary) 0%, token(accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: token(text-muted);
+  margin: 0;
+  max-width: 600px;
+
+  @media (max-width: 640px) {
+    font-size: 1.125rem;
+  }
+}
+
+.heroButtons {
+  display: flex;
+  gap: token(space-4);
+  flex-wrap: wrap;
+}
+
+.btnPrimary,
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: token(space-2);
+  padding: token(space-4) token(space-6);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  border-radius: token(radius);
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 640px) {
+    padding: token(space-3) token(space-5);
+    font-size: 1rem;
+  }
+}
+
+.btnPrimary {
+  background: token(primary);
+  color: token(primary-contrast);
+  border: 2px solid token(primary);
+
+  &:hover {
+    background: token(primary-hover);
+    border-color: token(primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.btnSecondary {
+  background: transparent;
+  color: token(text);
+  border: 2px solid token(border);
+
+  &:hover {
+    background: token(surface-2);
+    border-color: token(border-strong);
+  }
+}
+
+.heroVisual {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: token(space-4);
+
+  @media (max-width: 968px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visualCard {
+  background: token(surface);
+  border: 1px solid token(border);
+  border-radius: token(radius-lg);
+  padding: token(space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: token(space-3);
+  text-align: center;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: token(primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  &:nth-child(3) {
+    grid-column: span 2;
+
+    @media (max-width: 968px) {
+      grid-column: span 1;
+    }
+  }
+}
+
+.visualIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.visualLabel {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: token(text);
+}
+
+.stats {
+  background: token(surface);
+  border-top: 1px solid token(border);
+  border-bottom: 1px solid token(border);
+  padding: token(space-12) token(space-8);
+
+  @media (max-width: 640px) {
+    padding: token(space-8) token(space-4);
+  }
+}
+
+.statsGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: token(space-8);
+
+  @media (max-width: 968px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: token(space-6);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statCard {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 3rem;
+  font-weight: 800;
+  color: token(primary);
+  line-height: 1;
+  margin-bottom: token(space-2);
+
+  @media (max-width: 640px) {
+    font-size: 2.5rem;
+  }
+}
+
+.statLabel {
+  font-size: 0.9375rem;
+  color: token(text-muted);
+  font-weight: 500;
+}
+
+.features {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: token(space-16) token(space-8);
+
+  @media (max-width: 640px) {
+    padding: token(space-12) token(space-4);
+  }
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: token(space-12);
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: token(text-strong);
+  margin: 0 0 token(space-3) 0;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
+}
+
+.sectionDescription {
+  font-size: 1.125rem;
+  color: token(text-muted);
+  margin: 0;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: token(space-6);
+
+  @media (max-width: 968px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureCard {
+  background: token(surface);
+  border: 1px solid token(border);
+  border-radius: token(radius-lg);
+  padding: token(space-8);
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: token(primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: token(space-4);
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: token(text-strong);
+  margin: 0 0 token(space-3) 0;
+}
+
+.featureDescription {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: token(text-muted);
+  margin: 0;
+}
+
+.compatibility {
+  background: token(surface);
+  border-top: 1px solid token(border);
+  padding: token(space-16) token(space-8);
+
+  @media (max-width: 640px) {
+    padding: token(space-12) token(space-4);
+  }
+}
+
+.compatCard {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.compatTitle {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: token(text-strong);
+  margin: 0 0 token(space-3) 0;
+
+  @media (max-width: 640px) {
+    font-size: 1.875rem;
+  }
+}
+
+.compatDescription {
+  font-size: 1.125rem;
+  color: token(text-muted);
+  margin: 0 0 token(space-8) 0;
+}
+
+.compatGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: token(space-4);
+
+  a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.compatItem {
+  display: flex;
+  align-items: center;
+  gap: token(space-3);
+  padding: token(space-4);
+  background: token(bg);
+  border: 1px solid token(border);
+  border-radius: token(radius);
+  font-weight: 500;
+  color: token(text);
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: token(primary);
+    transform: translateX(4px);
+  }
+}
+
+.compatCheck {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: token(primary);
+  color: token(primary-contrast);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.cta {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: token(space-16) token(space-8);
+
+  @media (max-width: 640px) {
+    padding: token(space-12) token(space-4);
+  }
+}
+
+.ctaContent {
+  background: linear-gradient(135deg, token(surface) 0%, token(surface-2) 100%);
+  border: 1px solid token(border);
+  border-radius: token(radius-lg);
+  padding: token(space-12);
+  text-align: center;
+
+  @media (max-width: 640px) {
+    padding: token(space-8);
+  }
+}
+
+.ctaTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: token(text-strong);
+  margin: 0 0 token(space-3) 0;
+
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
+}
+
+.ctaDescription {
+  font-size: 1.125rem;
+  color: token(text-muted);
+  margin: 0 0 token(space-8) 0;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: token(space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: token(space-6);
+}
+
+.ctaBtnPrimary,
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: token(space-2);
+  padding: token(space-4) token(space-6);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  border-radius: token(radius);
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.ctaBtnPrimary {
+  background: token(primary);
+  color: token(primary-contrast);
+  border: 2px solid token(primary);
+
+  &:hover {
+    background: token(primary-hover);
+    border-color: token(primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.ctaBtnSecondary {
+  background: token(accent);
+  color: token(accent-contrast);
+  border: 2px solid token(accent);
+
+  &:hover {
+    background: token(accent-hover);
+    border-color: token(accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.ctaLinks {
+  display: flex;
+  gap: token(space-3);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.9375rem;
+
+  a {
+    color: token(text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: token(primary);
+    }
+  }
+
+  span {
+    color: token(border);
+  }
+}
+
+.visualIcon {
+  color: token(primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featureIcon {
+  color: token(primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: token(space-4);
+}

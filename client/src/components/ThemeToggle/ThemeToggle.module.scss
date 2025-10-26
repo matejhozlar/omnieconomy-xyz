@@ -1,74 +1,116 @@
 @use "@/styles/themes" as *;
 
+$svg-size: 20px;
+$svg-size-mp: 18px;
+$pad: 4px;
+$size: 44px;
+
 .toggle {
-  --size: 34px;
-  --pad: 3px;
   position: relative;
-  width: calc(var(--size) * 2.05);
-  height: var(--size);
+  width: calc($size * 2.05);
+  height: $size;
   border: 1px solid token(border);
-  border-radius: calc(var(--size) / 2);
+  border-radius: calc($size / 2);
   background: token(surface);
   color: token(text);
   display: inline-flex;
   align-items: center;
-  padding: var(--pad);
+  padding: $pad;
   cursor: pointer;
-  box-shadow: var(--shadow-1);
+  box-shadow: token(shadow-1);
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 
   &:hover {
     background: token(surface-2);
   }
 
-  .iconSun,
-  .iconMoon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: token(text-muted);
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-  .iconSun {
-    left: calc(var(--pad) + 4px);
-  }
-  .iconMoon {
-    right: calc(var(--pad) + 4px);
+  &:active {
+    transform: scale(0.98);
   }
 
-  .knob {
-    position: absolute;
-    top: var(--pad);
-    left: var(--pad);
-    width: calc(var(--size) - var(--pad) * 2);
-    height: calc(var(--size) - var(--pad) * 2);
-    border-radius: 999px;
-    background: token(primary);
-    box-shadow: var(--shadow-1);
-    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-      background 0.2s ease;
+  @media (max-width: 768px) {
+    width: calc(40px * 2.05);
+    height: 40px;
   }
 }
 
-:root[data-theme="light"] .toggle {
-  .knob {
-    transform: translateX(calc(100% + var(--pad)));
-    background: token(accent);
+.iconSun,
+.iconMoon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: $svg-size;
+    height: $svg-size;
+    display: block;
   }
-  .iconSun {
-    opacity: 1;
-  }
-  .iconMoon {
-    opacity: 0.35;
+
+  @media (max-width: 768px) {
+    svg {
+      width: $svg-size-mp;
+      height: $svg-size-mp;
+    }
   }
 }
 
-:root:not([data-theme="light"]) .toggle {
-  .iconSun {
-    opacity: 0.35;
+.iconSun {
+  left: calc($pad + 6px);
+}
+
+.iconMoon {
+  right: calc($pad + 6px);
+}
+
+.knob {
+  position: absolute;
+  top: $pad;
+  left: $pad;
+  width: calc($size - $pad * 2);
+  height: calc($size - $pad * 2);
+  border-radius: 999px;
+  background: token(primary);
+  box-shadow: token(shadow-1);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.2s ease;
+
+  @media (max-width: 768px) {
+    width: calc(40px - $pad * 2);
+    height: calc(40px - $pad * 2);
   }
-  .iconMoon {
-    opacity: 1;
+}
+
+:root[data-theme="light"] {
+  .toggle {
+    .knob {
+      transform: translateX(calc(100% + $pad));
+      background: token(accent);
+    }
+
+    .iconSun {
+      opacity: 1;
+      color: token(accent);
+    }
+
+    .iconMoon {
+      opacity: 0.35;
+      color: token(text-muted);
+    }
+  }
+}
+
+:root:not([data-theme="light"]) {
+  .toggle {
+    .iconSun {
+      opacity: 1;
+      color: token(primary);
+    }
+
+    .iconMoon {
+      opacity: 1;
+      color: token(primary);
+    }
   }
 }
