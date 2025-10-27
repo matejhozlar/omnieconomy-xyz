@@ -1,28 +1,53 @@
+name: Frontend CI (lint & build)
+
+on:
+  push:
+    paths:
+      - "apps/client/**"
+      - "apps/wiki/**"
+      - "packages/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/frontend-ci.yml"
+  pull_request:
+    paths:
+      - "apps/client/**"
+      - "apps/wiki/**"
+      - "packages/**"
+      - "package.json"
+      - "package-lock.json"
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        app: [client, wiki]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Use Node.js 20 with npm cache
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - name: Install dependencies
+      - name: Install dependencies (monorepo root)
         run: npm ci
 
-      - name: Lint ${{ matrix.app }}
-        run: npm run lint -w apps/${{ matrix.app }}
+      - name: Lint client
+        run: npm run lint -w apps/client
 
-      - name: Build ${{ matrix.app }}
-        run: npm run build -w apps/${{ matrix.app }}
+      - name: Lint wiki
+        run: npm run lint -w apps/wiki
 
-      - name: Check build output
-        run: ls -la apps/${{ matrix.app }}/dist
+      - name: Build client
+        run: npm run build -w apps/client
+
+      - name: Build wiki
+        run: npm run build -w apps/wiki
+
+      - name: Check client build output
+        run: ls -la apps/client/dist
+
+      - name: Check wiki build output
+        run: ls -la apps/wiki/dist
