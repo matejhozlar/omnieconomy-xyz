@@ -1,0 +1,15 @@
+{
+  "name": "@omnieconomy/shared-styles",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.scss",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.scss",
+    "./palette": "./src/_palette.scss",
+    "./themes": "./src/_themes.scss",
+    "./index": "./src/index.scss"
+  }
+}

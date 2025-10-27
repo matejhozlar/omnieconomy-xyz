@@ -1,0 +1,24 @@
+{
+  "name": "omnieconomy-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:client": "npm run dev -w apps/client",
+    "dev:wiki": "npm run dev -w apps/wiki",
+    "dev:server": "npm run dev -w apps/server",
+    "build": "npm run build --workspaces --if-present",
+    "build:client": "npm run build -w apps/client",
+    "build:wiki": "npm run build -w apps/wiki",
+    "build:server": "npm run build -w apps/server",
+    "clean": "rm -rf apps/*/dist apps/*/node_modules packages/*/dist packages/*/node_modules node_modules"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.1.7"
+  }
+}

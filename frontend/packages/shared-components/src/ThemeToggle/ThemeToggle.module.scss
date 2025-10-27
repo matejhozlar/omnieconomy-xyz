@@ -1,0 +1,116 @@
+@use "@omnieconomy/shared-styles/themes" as *;
+
+$svg-size: 20px;
+$svg-size-mp: 18px;
+$pad: 4px;
+$size: 44px;
+
+.toggle {
+  position: relative;
+  width: calc($size * 2.05);
+  height: $size;
+  border: 1px solid token(border);
+  border-radius: calc($size / 2);
+  background: token(surface);
+  color: token(text);
+  display: inline-flex;
+  align-items: center;
+  padding: $pad;
+  cursor: pointer;
+  box-shadow: token(shadow-1);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: token(surface-2);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    width: calc(40px * 2.05);
+    height: 40px;
+  }
+}
+
+.iconSun,
+.iconMoon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: $svg-size;
+    height: $svg-size;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    svg {
+      width: $svg-size-mp;
+      height: $svg-size-mp;
+    }
+  }
+}
+
+.iconSun {
+  left: calc($pad + 6px);
+}
+
+.iconMoon {
+  right: calc($pad + 6px);
+}
+
+.knob {
+  position: absolute;
+  top: $pad;
+  left: $pad;
+  width: calc($size - $pad * 2);
+  height: calc($size - $pad * 2);
+  border-radius: 999px;
+  background: token(primary);
+  box-shadow: token(shadow-1);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.2s ease;
+
+  @media (max-width: 768px) {
+    width: calc(40px - $pad * 2);
+    height: calc(40px - $pad * 2);
+  }
+}
+
+:root[data-theme="light"] {
+  .toggle {
+    .knob {
+      transform: translateX(calc(100% + $pad));
+      background: token(accent);
+    }
+
+    .iconSun {
+      opacity: 1;
+      color: token(accent);
+    }
+
+    .iconMoon {
+      opacity: 0.35;
+      color: token(text-muted);
+    }
+  }
+}
+
+:root:not([data-theme="light"]) {
+  .toggle {
+    .iconSun {
+      opacity: 1;
+      color: token(primary);
+    }
+
+    .iconMoon {
+      opacity: 1;
+      color: token(primary);
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@use "@omnieconomy/shared-styles";
+
+* {
+  cursor: url("../assets/cursor/sword.cur") 0 0, auto !important;
+}
+
+body {
+  cursor: url("../assets/cursor/sword.cur") 0 0, auto !important;
+}
+
+*,
+*::before,
+*::after {
+  user-select: none;
+  -webkit-user-drag: none;
+}
