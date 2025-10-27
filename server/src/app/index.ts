@@ -6,13 +6,9 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { runInDevelopment } from "../utils/run-guard";
 import config from "../config";
+import { CLIENT_DIST, WIKI_DIST } from "../paths";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const reactBuildPath =
-  process.env.NODE_ENV === "production"
-    ? path.join(__dirname, "..", "..", "client")
-    : path.join(__dirname, "..", "..", "frontend", "apps", "client", "dist");
 
 const limiter = rateLimit({
   windowMs: config.RateLimitConfig.WINDOW_MS,
@@ -37,8 +33,20 @@ export function createApp(): Express {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser(process.env.COOKIE_SECRET));
-  app.use(express.static(reactBuildPath));
+  app.use(express.static(CLIENT_DIST));
+  app.use(express.static(WIKI_DIST));
 
+  app.get(/^\/(?!api|socket\.io).*/, (req, res) => {
+    const host = req.hostname.toLowerCase();
+
+    const isWiki =
+      host === "wiki.localhost" ||
+      host === "wiki.omnieconomy.xyz" ||
+      host.startsWith("wiki.");
+
+    const root = isWiki ? WIKI_DIST : CLIENT_DIST;
+    res.sendFile(path.join(root, "index.html"));
+  });
   runInDevelopment(() => {
     app.use(cors({ origin: true, credentials: true }));
   });

@@ -46,18 +46,26 @@ export default function Header() {
       <header className={styles.header}>
         <div className={styles.container}>
           <div className={styles.left}>
-            <Link to="/" className={styles.brand} onClick={closeMenu}>
+            <a
+              href={config.ORIGINS.APP_ORIGIN}
+              className={styles.brand}
+              onClick={closeMenu}
+            >
               <div className={styles.logo}>
                 <img src="/assets/logo/logo.png" alt="OmniEconomy Logo" />
               </div>
               <span className={styles.name}>OmniEconomy</span>
-            </Link>
+            </a>
           </div>
 
           <nav className={`${styles.nav} ${mobileMenuOpen ? styles.open : ""}`}>
-            <Link to="/docs" className={styles.navLink} onClick={closeMenu}>
-              Docs
-            </Link>
+            <a
+              href={config.ORIGINS.WIKI_ORIGIN}
+              className={styles.navLink}
+              onClick={closeMenu}
+            >
+              Wiki
+            </a>
             <Link to="/tools" className={styles.navLink} onClick={closeMenu}>
               Tools
             </Link>
