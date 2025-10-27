@@ -3,23 +3,18 @@ name: Frontend CI (lint & build)
 on:
   push:
     paths:
-      - "apps/client/**"
-      - "apps/wiki/**"
-      - "packages/**"
-      - "package.json"
-      - "package-lock.json"
+      - "frontend/**"
       - ".github/workflows/frontend-ci.yml"
   pull_request:
     paths:
-      - "apps/client/**"
-      - "apps/wiki/**"
-      - "packages/**"
-      - "package.json"
-      - "package-lock.json"
+      - "frontend/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - name: Checkout
