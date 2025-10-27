@@ -29,7 +29,7 @@
 - Report bugs on [GitHub Issues](https://github.com/matejhozlar/omnieconomy/issues)
 - Join the [Discord community](https://discord.gg/mNcm76HXFy)
 
-_If you struggle with the mod, feel free to contanct me on Discord: matejhoz_
+> **Note**: If you struggle with the mod, feel free to contanct me on Discord: matejhoz
 
 ## What's Next?
 

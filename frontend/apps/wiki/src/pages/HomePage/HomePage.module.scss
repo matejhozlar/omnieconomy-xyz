@@ -32,10 +32,18 @@
 }
 
 .categories {
+  --card-min: 300px;
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, minmax(var(--card-min), 1fr));
   gap: token(space-6);
   margin-bottom: token(space-12);
+
+  justify-content: center;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .categoryCard {

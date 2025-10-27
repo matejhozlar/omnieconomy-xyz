@@ -11,7 +11,7 @@ If your server has Create mod installed, you can use the **Bank Card** with Stoc
 3. Right-click Stock Ticker or Blaze Burner
 4. Shopping cost is paid from your bank account
 
-_Note: More integrations coming in future updates_
+> **Note**: More integrations coming in future updates
 
 # [AFKStatus](https://www.curseforge.com/minecraft/mc-mods/afkstatus)
 

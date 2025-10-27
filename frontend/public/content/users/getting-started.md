@@ -41,4 +41,4 @@ When you join a server with OmniEconomy, you'll start with $0 in your virtual ac
 
 ---
 
-**Ready to build your fortune?** Start earning money and become the richest player on your server! 💰
+**Ready to build your fortune?** Start earning money and become the richest player on your server!

@@ -8,24 +8,15 @@ ATM blocks are the heart of OmniEconomy's banking system. They allow you to:
 
 1. First, craft **Circuit Board**:
 
-   ```
-   [Copper Ingot] [Gold Ingot]
-   [Redstone]     [Iron Ingot]
-   ```
+![Circuit Board](/assets/mod/recipes/circuit-board-recipe.png)
 
 2. Then, craft **Keypad**:
 
-   ```
-   [Button] [Button] [Button]
-            [Iron Ingot]
-   ```
+![Keypad](/assets/mod/recipes/keypad-recipe.png)
 
 3. Finally, craft the **ATM Block**:
-   ```
-   [Iron Block]  [Circuit Board] [Iron Block]
-   [Circuit Board] [Chest]       [Circuit Board]
-   [Iron Block]  [Keypad]        [Iron Block]
-   ```
+
+![ATM](/assets/mod/recipes/atm-recipe.png)
 
 ## Using an ATM
 
@@ -42,7 +33,7 @@ ATM blocks are the heart of OmniEconomy's banking system. They allow you to:
 3. Choose "Deposit All"
 4. All currency bills in your inventory are transferred to your account
 
-**Tip**: Depositing is the safest way to store money!
+> **Tip**: Depositing is the safest way to store money!
 
 ## Withdrawing Money
 
@@ -60,4 +51,4 @@ You have two withdrawal options:
 - Perfect for making specific change
 - Example: Need exact change? Request 5×$1 bills
 
-**Note**: Make sure you have enough inventory space!
+> **Note**: Make sure you have enough inventory space!

@@ -14,7 +14,7 @@ Most hostile mobs have a chance to drop currency bills when killed:
 - **Rare Drop**: All mobs have a 0.02% chance to drop $5 bills
 - **Nether Mobs** (Wither Skeletons, Blazes): Better chances for currency
 
-**Pro Tip**: Use the Capitalist Greed enchantment on your weapon to increase drop rates!
+> **Pro Tip**: Use the Capitalist Greed enchantment on your weapon to increase drop rates!
 
 ## 3. Playtime Rewards
 

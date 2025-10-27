@@ -31,15 +31,15 @@ export const WIKI_CATEGORIES: WikiCategory[] = [
         contentPath: "/content/users/getting-started.md",
       },
       {
-        slug: "Items",
-        title: "Items",
-        description: "Items & Recipes",
-        contentPath: "/content/users/items.md",
+        slug: "items-and-recipes",
+        title: "Items & Recipes",
+        description: "List of all items, blocks and recipes",
+        contentPath: "/content/users/items-and-recipes.md",
       },
       {
         slug: "getting-money",
         title: "First Money",
-        description: "Earning money guide",
+        description: "Getting your first money",
         contentPath: "/content/users/getting-money.md",
       },
       {

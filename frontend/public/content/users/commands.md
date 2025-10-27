@@ -20,4 +20,4 @@ If your server has ATM command integration enabled:
 | `/withdraw <denom> <count>` | Withdraw specific denominations       |
 | `/withdraw 100:2 50:5`      | Withdraw multiple denominations       |
 
-**Note**: Most servers use ATM blocks instead of commands for a better experience!
+> **Note**: Most servers use ATM blocks instead of commands for a better experience!

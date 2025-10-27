@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { WIKI_CATEGORIES } from "../../data/categories";
+import { useEqualHeights } from "@/hooks/useEqualHeights";
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
+  useEqualHeights(`.${styles.categoryCard}`);
+
   return (
     <div className={styles.home}>
       <header className={styles.header}>

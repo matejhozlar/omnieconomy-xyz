@@ -4,8 +4,10 @@ import { Home, ChevronLeft, ChevronRight } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
 import { getCategoryById, getPage } from "../../data/categories";
 import TableOfContents from "../../components/TableOfContents/TableOfContents";
+import OutdatedBanner from "@/components/OutdatedBanner/OutdatedBanner";
 import styles from "./WikiPage.module.scss";
 
 export default function WikiPage() {
@@ -96,6 +98,10 @@ export default function WikiPage() {
             <p className={styles.description}>{page.description}</p>
           </header>
 
+          {categoryId && pageSlug && !loading && !error && (
+            <OutdatedBanner categoryId={categoryId} pageSlug={pageSlug} />
+          )}
+
           <div className={styles.content} ref={contentRef}>
             {loading && (
               <div className={styles.loading}>
@@ -113,7 +119,10 @@ export default function WikiPage() {
             {!loading && !error && content && (
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
+                rehypePlugins={[
+                  rehypeRaw, // ← Add this to parse HTML
+                  rehypeHighlight,
+                ]}
                 components={{
                   a: ({ href, children, ...props }) => {
                     const isExternal = href?.startsWith("http");
@@ -128,6 +137,19 @@ export default function WikiPage() {
                       </a>
                     );
                   },
+                  img: ({ title, ...props }) => {
+                    const style: React.CSSProperties = {
+                      maxWidth: "100%",
+                      height: "auto",
+                    };
+                    if (title) {
+                      const w = title.match(/w=([0-9]+%?)/)?.[1];
+                      const h = title.match(/h=([0-9]+%?)/)?.[1];
+                      if (w) style.width = w.endsWith("%") ? w : `${w}px`;
+                      if (h) style.height = h.endsWith("%") ? h : `${h}px`;
+                    }
+                    return <img {...props} style={style} />;
+                  },
                 }}
               >
                 {content}
@@ -140,7 +162,7 @@ export default function WikiPage() {
           {previousPage ? (
             <Link
               to={`/${categoryId}/${previousPage.slug}`}
-              className={styles.navButton}
+              className={`${styles.navButton} ${styles.navButtonPrev}`}
             >
               <ChevronLeft size={20} />
               <div>
@@ -155,7 +177,7 @@ export default function WikiPage() {
           {nextPage && (
             <Link
               to={`/${categoryId}/${nextPage.slug}`}
-              className={styles.navButton}
+              className={`${styles.navButton} ${styles.navButtonNext}`}
             >
               <div className={styles.navTextRight}>
                 <div className={styles.navLabel}>Next</div>

@@ -15,7 +15,7 @@ OmniEconomy uses eight denominations of physical currency:
 | $500  | 500   | Major purchases            |
 | $1000 | 1000  | Highest denomination       |
 
-**Important**: Bills exist as items in your inventory. If you die, you may drop them!
+> **Important**: Bills exist as items in your inventory. If you die, you may drop them!
 
 ## Virtual Balance
 
