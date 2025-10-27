@@ -14,11 +14,6 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@omnieconomy/shared-styles": ["./packages/shared-styles/src"],
-      "@omnieconomy/shared-config": ["./packages/shared-config/src"],
-      "@omnieconomy/shared-components": ["./packages/shared-components/src"]
-    }
+    "noFallthroughCasesInSwitch": true
   }
 }

@@ -1,14 +1,22 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@omnieconomy/shared-styles": ["../../packages/shared-styles/src"],
-      "@omnieconomy/shared-config": ["../../packages/shared-config/src"],
-      "@omnieconomy/shared-components": ["../../packages/shared-components/src"]
+      "@omnieconomy/shared-styles/*": ["../../packages/shared-styles/src/*"],
+      "@omnieconomy/shared-config": [
+        "../../packages/shared-config/src/index.ts"
+      ],
+      "@omnieconomy/shared-config/*": ["../../packages/shared-config/src/*"],
+      "@omnieconomy/shared-components": [
+        "../../packages/shared-components/src/index.ts"
+      ],
+      "@omnieconomy/shared-components/*": [
+        "../../packages/shared-components/src/*"
+      ]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
