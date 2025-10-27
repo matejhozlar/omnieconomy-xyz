@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*", "../../packages/shared-components/src/types"],
       "@omnieconomy/shared-styles/*": ["../../packages/shared-styles/src/*"],
       "@omnieconomy/shared-config": [
         "../../packages/shared-config/src/index.ts"
@@ -17,6 +17,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "../../packages/shared-components/src/types"],
   "exclude": ["node_modules", "dist"]
 }

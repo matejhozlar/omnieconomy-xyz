@@ -17,6 +17,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "../../packages/shared-components/src/types"],
   "exclude": ["node_modules", "dist"]
 }
