@@ -1,7 +1,14 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@omnieconomy/shared-styles": ["../../packages/shared-styles/src"],
+      "@omnieconomy/shared-config": ["../../packages/shared-config/src"],
+      "@omnieconomy/shared-components": ["../../packages/shared-components/src"]
+    }
+  },
+  "include": ["src"]
 }
