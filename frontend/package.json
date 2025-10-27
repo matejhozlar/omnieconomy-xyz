@@ -12,6 +12,7 @@
     "dev:wiki": "npm run dev -w apps/wiki",
     "dev:server": "npm run dev -w apps/server",
     "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
     "build:client": "npm run build -w apps/client",
     "build:wiki": "npm run build -w apps/wiki",
     "build:server": "npm run build -w apps/server",
