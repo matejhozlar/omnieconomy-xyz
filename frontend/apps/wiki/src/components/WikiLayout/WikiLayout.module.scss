@@ -1,0 +1,30 @@
+@use "@omnieconomy/shared-styles/themes" as *;
+
+$sidebar-width: 280px;
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  background: token(bg);
+}
+
+.main {
+  flex: 1;
+  margin-left: $sidebar-width;
+  overflow-y: auto;
+  padding: token(space-8);
+
+  @media (max-width: 968px) {
+    margin-left: 0;
+    padding: token(space-6);
+  }
+
+  @media (max-width: 640px) {
+    padding: token(space-4);
+  }
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+}
