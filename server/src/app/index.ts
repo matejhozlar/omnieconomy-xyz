@@ -9,7 +9,10 @@ import config from "../config";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const reactBuildPath = path.join(__dirname, "..", "..", "client", "dist");
+const reactBuildPath =
+  process.env.NODE_ENV === "production"
+    ? path.join(__dirname, "..", "..", "client")
+    : path.join(__dirname, "..", "..", "frontend", "apps", "client", "dist");
 
 const limiter = rateLimit({
   windowMs: config.RateLimitConfig.WINDOW_MS,
