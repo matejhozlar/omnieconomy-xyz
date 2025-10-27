@@ -1,5 +1,7 @@
 @use "@omnieconomy/shared-styles/themes" as *;
 
+$toc-width: 240px;
+
 .notFound {
   text-align: center;
   padding: token(space-16) token(space-4);
@@ -38,6 +40,10 @@
 
 .page {
   padding: token(space-6) 0;
+
+  @media (min-width: 1281px) {
+    margin-right: $toc-width;
+  }
 }
 
 .breadcrumbs {
@@ -174,6 +180,7 @@
     line-height: 1.3;
     margin-top: token(space-8);
     margin-bottom: token(space-4);
+    scroll-margin-top: 100px;
 
     &:first-child {
       margin-top: 0;
@@ -312,12 +319,14 @@
     }
   }
 
+  // Horizontal rule
   hr {
     margin: token(space-8) 0;
     border: none;
     border-top: 1px solid token(border);
   }
 
+  // Images
   img {
     max-width: 100%;
     height: auto;

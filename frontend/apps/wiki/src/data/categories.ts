@@ -20,7 +20,7 @@ export const WIKI_CATEGORIES: WikiCategory[] = [
   {
     id: "users",
     title: "User Guide",
-    description: "Learn how to use OmniEconomy on your server",
+    description: "Learn how to use OmniEconomy",
     icon: Book,
     color: "#22c55e",
     pages: [
@@ -30,12 +30,66 @@ export const WIKI_CATEGORIES: WikiCategory[] = [
         description: "Initial setup and configuration",
         contentPath: "/content/users/getting-started.md",
       },
+      {
+        slug: "Items",
+        title: "Items",
+        description: "Items & Recipes",
+        contentPath: "/content/users/items.md",
+      },
+      {
+        slug: "getting-money",
+        title: "First Money",
+        description: "Earning money guide",
+        contentPath: "/content/users/getting-money.md",
+      },
+      {
+        slug: "commands",
+        title: "Commands",
+        description: "List of all available commands",
+        contentPath: "/content/users/commands.md",
+      },
+      {
+        slug: "currency",
+        title: "Currency System",
+        description: "Understading physical currency",
+        contentPath: "/content/users/currency.md",
+      },
+      {
+        slug: "atm-blocks",
+        title: "ATM Blocks",
+        description: "How to use ATM Blocks",
+        contentPath: "/content/users/atm-blocks.md",
+      },
+      {
+        slug: "daily-limits",
+        title: "Daily Limits",
+        description: "Server set up daily limits",
+        contentPath: "/content/users/daily-limits.md",
+      },
+      {
+        slug: "mod-integrations",
+        title: "Mod Integrations",
+        description: "Supported mod integrations",
+        contentPath: "/content/users/mod-integrations.md",
+      },
+      {
+        slug: "enchantments",
+        title: "Enchantments",
+        description: "OmniEconomy custom enchantments",
+        contentPath: "/content/users/enchantments.md",
+      },
+      {
+        slug: "need-help",
+        title: "Need Help?",
+        description: "Get help from mod developers",
+        contentPath: "/content/users/need-help.md",
+      },
     ],
   },
   {
     id: "developers",
     title: "Developer Guide",
-    description: "API documentation and integration guides",
+    description: "API and integration guides",
     icon: Code,
     color: "#3b82f6",
     pages: [

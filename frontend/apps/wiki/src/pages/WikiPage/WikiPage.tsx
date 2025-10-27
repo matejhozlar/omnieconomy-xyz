@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Home, ChevronLeft, ChevronRight } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { getCategoryById, getPage } from "../../data/categories";
+import TableOfContents from "../../components/TableOfContents/TableOfContents";
 import styles from "./WikiPage.module.scss";
 
 export default function WikiPage() {
@@ -16,6 +17,9 @@ export default function WikiPage() {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(
+    null!
+  ) as React.RefObject<HTMLDivElement>;
 
   const category = categoryId ? getCategoryById(categoryId) : undefined;
   const page =
@@ -72,94 +76,100 @@ export default function WikiPage() {
   const CategoryIcon = category.icon;
 
   return (
-    <div className={styles.page}>
-      <nav className={styles.breadcrumbs}>
-        <Link to="/">Wiki</Link>
-        <span>/</span>
-        <Link to={`/${categoryId}`}>{category.title}</Link>
-        <span>/</span>
-        <span>{page.title}</span>
-      </nav>
+    <>
+      <div className={styles.page}>
+        <nav className={styles.breadcrumbs}>
+          <Link to="/">Wiki</Link>
+          <span>/</span>
+          <Link to={`/${categoryId}`}>{category.title}</Link>
+          <span>/</span>
+          <span>{page.title}</span>
+        </nav>
 
-      <article className={styles.article}>
-        <header className={styles.header}>
-          <div className={styles.category}>
-            <CategoryIcon size={20} />
-            <span>{category.title}</span>
+        <article className={styles.article}>
+          <header className={styles.header}>
+            <div className={styles.category}>
+              <CategoryIcon size={20} />
+              <span>{category.title}</span>
+            </div>
+            <h1 className={styles.title}>{page.title}</h1>
+            <p className={styles.description}>{page.description}</p>
+          </header>
+
+          <div className={styles.content} ref={contentRef}>
+            {loading && (
+              <div className={styles.loading}>
+                <div className={styles.spinner} />
+                <p>Loading content...</p>
+              </div>
+            )}
+
+            {error && (
+              <div className={styles.error}>
+                <p>{error}</p>
+              </div>
+            )}
+
+            {!loading && !error && content && (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+                components={{
+                  a: ({ href, children, ...props }) => {
+                    const isExternal = href?.startsWith("http");
+                    return (
+                      <a
+                        href={href}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        {...props}
+                      >
+                        {children}
+                      </a>
+                    );
+                  },
+                }}
+              >
+                {content}
+              </ReactMarkdown>
+            )}
           </div>
-          <h1 className={styles.title}>{page.title}</h1>
-          <p className={styles.description}>{page.description}</p>
-        </header>
+        </article>
 
-        <div className={styles.content}>
-          {loading && (
-            <div className={styles.loading}>
-              <div className={styles.spinner} />
-              <p>Loading content...</p>
-            </div>
-          )}
-
-          {error && (
-            <div className={styles.error}>
-              <p>{error}</p>
-            </div>
-          )}
-
-          {!loading && !error && content && (
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
-              components={{
-                a: ({ href, children, ...props }) => {
-                  const isExternal = href?.startsWith("http");
-                  return (
-                    <a
-                      href={href}
-                      target={isExternal ? "_blank" : undefined}
-                      rel={isExternal ? "noopener noreferrer" : undefined}
-                      {...props}
-                    >
-                      {children}
-                    </a>
-                  );
-                },
-              }}
+        <nav className={styles.navigation}>
+          {previousPage ? (
+            <Link
+              to={`/${categoryId}/${previousPage.slug}`}
+              className={styles.navButton}
             >
-              {content}
-            </ReactMarkdown>
+              <ChevronLeft size={20} />
+              <div>
+                <div className={styles.navLabel}>Previous</div>
+                <div className={styles.navTitle}>{previousPage.title}</div>
+              </div>
+            </Link>
+          ) : (
+            <div />
           )}
-        </div>
-      </article>
 
-      <nav className={styles.navigation}>
-        {previousPage ? (
-          <Link
-            to={`/${categoryId}/${previousPage.slug}`}
-            className={styles.navButton}
-          >
-            <ChevronLeft size={20} />
-            <div>
-              <div className={styles.navLabel}>Previous</div>
-              <div className={styles.navTitle}>{previousPage.title}</div>
-            </div>
-          </Link>
-        ) : (
-          <div />
-        )}
+          {nextPage && (
+            <Link
+              to={`/${categoryId}/${nextPage.slug}`}
+              className={styles.navButton}
+            >
+              <div className={styles.navTextRight}>
+                <div className={styles.navLabel}>Next</div>
+                <div className={styles.navTitle}>{nextPage.title}</div>
+              </div>
+              <ChevronRight size={20} />
+            </Link>
+          )}
+        </nav>
+      </div>
 
-        {nextPage && (
-          <Link
-            to={`/${categoryId}/${nextPage.slug}`}
-            className={styles.navButton}
-          >
-            <div className={styles.navTextRight}>
-              <div className={styles.navLabel}>Next</div>
-              <div className={styles.navTitle}>{nextPage.title}</div>
-            </div>
-            <ChevronRight size={20} />
-          </Link>
-        )}
-      </nav>
-    </div>
+      {!loading && !error && content && (
+        <TableOfContents contentRef={contentRef} />
+      )}
+    </>
   );
 }

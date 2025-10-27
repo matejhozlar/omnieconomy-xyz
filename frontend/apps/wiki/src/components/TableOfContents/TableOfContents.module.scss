@@ -1,0 +1,107 @@
+@use "@omnieconomy/shared-styles/themes" as *;
+
+$toc-width: 240px;
+$header-height: 80px;
+
+.toc {
+  position: fixed;
+  top: $header-height;
+  right: 0;
+  bottom: 0;
+  width: $toc-width;
+  padding: token(space-8) token(space-6);
+  border-left: 1px solid token(border);
+  background: token(surface);
+  overflow-y: auto;
+  z-index: 10;
+
+  @media (max-width: 1280px) {
+    display: none;
+  }
+}
+
+.tocContent {
+  position: sticky;
+  top: token(space-8);
+}
+
+.tocTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: token(text-strong);
+  margin-bottom: token(space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tocNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tocItem {
+  display: block;
+  width: 100%;
+  padding: token(space-2) token(space-3);
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  color: token(text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  border-radius: token(radius-sm);
+
+  &:hover {
+    color: token(text);
+    background: token(surface-2);
+    border-left-color: token(border-strong);
+  }
+
+  &.active {
+    color: token(primary);
+    background: token(surface-2);
+    border-left-color: token(primary);
+    font-weight: 600;
+  }
+}
+
+.level1 {
+  padding-left: token(space-3);
+  font-weight: 600;
+}
+
+.level2 {
+  padding-left: token(space-5);
+}
+
+.level3 {
+  padding-left: token(space-7);
+  font-size: 0.75rem;
+}
+
+.toc {
+  scrollbar-width: thin;
+  scrollbar-color: token(border) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: token(border);
+    border-radius: 3px;
+
+    &:hover {
+      background: token(border-strong);
+    }
+  }
+}

@@ -3,6 +3,54 @@
 $sidebar-width: 280px;
 $header-height: 80px;
 
+.searchTrigger {
+  width: 100%;
+  padding: token(space-3);
+  background: token(bg);
+  border: 1px solid token(border);
+  border-radius: token(radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: token(space-6);
+  font-family: inherit;
+
+  &:hover {
+    border-color: token(primary);
+    background: token(surface-2);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.searchTriggerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: token(space-2);
+
+  span {
+    font-size: 0.875rem;
+    color: token(text-muted);
+  }
+}
+
+.searchShortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  background: token(surface);
+  border: 1px solid token(border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: token(text);
+  font-family: inherit;
+  box-shadow: 0 1px 0 token(border);
+}
+
 .mobileToggle {
   display: none;
   position: fixed;
@@ -87,44 +135,6 @@ $header-height: 80px;
 
 .sidebarContent {
   padding: token(space-6);
-}
-
-.searchForm {
-  margin-bottom: token(space-6);
-}
-
-.searchInput {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.searchIcon {
-  position: absolute;
-  left: token(space-3);
-  color: token(text-muted);
-  pointer-events: none;
-}
-
-.input {
-  width: 100%;
-  padding: token(space-3) token(space-3) token(space-3) token(space-10);
-  background: token(bg);
-  border: 1px solid token(border);
-  border-radius: token(radius);
-  color: token(text);
-  font-size: 0.9375rem;
-  transition: all 0.2s;
-
-  &::placeholder {
-    color: token(text-muted);
-  }
-
-  &:focus {
-    outline: none;
-    border-color: token(primary);
-    background: token(surface);
-  }
 }
 
 .nav {

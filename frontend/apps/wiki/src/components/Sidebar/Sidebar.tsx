@@ -1,29 +1,27 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Search, Book, Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Book, Menu, X } from "lucide-react";
 import { WIKI_CATEGORIES } from "../../data/categories";
 import styles from "./Sidebar.module.scss";
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
+interface SidebarProps {
+  onSearchClick?: () => void;
+}
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-      setIsOpen(false);
-    }
-  };
+export default function Sidebar({ onSearchClick }: SidebarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const isActive = (path: string) => {
     return (
       location.pathname === path || location.pathname.startsWith(path + "/")
     );
   };
+
+  const isMac =
+    typeof navigator !== "undefined" &&
+    /Mac|iPhone|iPod|iPad/i.test(navigator.userAgent);
+  const shortcutKey = isMac ? "⌘" : "Ctrl";
 
   return (
     <>
@@ -41,18 +39,18 @@ export default function Sidebar() {
 
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.sidebarContent}>
-          <form className={styles.searchForm} onSubmit={handleSearch}>
-            <div className={styles.searchInput}>
-              <Search size={18} className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="Search wiki..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.input}
-              />
+          <button
+            className={styles.searchTrigger}
+            onClick={() => {
+              onSearchClick?.();
+              setIsOpen(false);
+            }}
+          >
+            <div className={styles.searchTriggerContent}>
+              <span>Search...</span>
+              <kbd className={styles.searchShortcut}>{shortcutKey} K</kbd>
             </div>
-          </form>
+          </button>
 
           <nav className={styles.nav}>
             <Link

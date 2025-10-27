@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import {
   DollarSign,
   TrendingUp,
@@ -163,7 +162,10 @@ export default function Home() {
               </svg>
               Download Now
             </a>
-            <Link to="/docs" className={styles.btnSecondary}>
+            <a
+              href={config.ORIGINS.WIKI_ORIGIN}
+              className={styles.btnSecondary}
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -174,7 +176,7 @@ export default function Home() {
                 <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
               </svg>
               Read Documentation
-            </Link>
+            </a>
           </div>
         </div>
         <div className={styles.heroVisual}>
@@ -460,7 +462,7 @@ export default function Home() {
               Join Discord
             </a>
             <span>•</span>
-            <Link to="/docs">View Documentation</Link>
+            <a href={config.ORIGINS.WIKI_ORIGIN}>View Documentation</a>
             <span>•</span>
             <a
               href={config.LINKS.GITHUB}

@@ -1,0 +1,277 @@
+@use "@omnieconomy/shared-styles/themes" as *;
+
+.notFound {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: token(space-8);
+  overflow: hidden;
+  background: token(bg);
+
+  @media (max-width: 640px) {
+    padding: token(space-6);
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 600px;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorCode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: token(space-4);
+  margin-bottom: token(space-8);
+  font-size: 8rem;
+  font-weight: 900;
+  line-height: 1;
+
+  @media (max-width: 640px) {
+    font-size: 5rem;
+    gap: token(space-2);
+  }
+}
+
+.four,
+.zero {
+  display: inline-block;
+  background: linear-gradient(135deg, token(primary), token(primary-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.four:first-child {
+  animation-delay: 0s;
+}
+
+.zero {
+  animation-delay: 0.2s;
+  font-size: 7rem;
+
+  @media (max-width: 640px) {
+    font-size: 4.5rem;
+  }
+}
+
+.four:last-child {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: token(text-strong);
+  margin: 0 0 token(space-4) 0;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 640px) {
+    font-size: 2rem;
+  }
+}
+
+.description {
+  font-size: 1.125rem;
+  color: token(text-muted);
+  margin: 0 0 token(space-8) 0;
+  line-height: 1.6;
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: token(space-4);
+  margin-bottom: token(space-12);
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: token(space-2);
+  padding: token(space-4) token(space-6);
+  border-radius: token(radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+
+  @media (max-width: 640px) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.primaryButton {
+  background: token(primary);
+  color: token(primary-contrast);
+  border: 2px solid token(primary);
+
+  &:hover {
+    background: token(primary-hover);
+    border-color: token(primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.secondaryButton {
+  background: transparent;
+  color: token(text);
+  border: 2px solid token(border);
+
+  &:hover {
+    background: token(surface);
+    border-color: token(border-strong);
+    transform: translateY(-2px);
+  }
+}
+
+.links {
+  padding-top: token(space-8);
+  border-top: 1px solid token(border);
+}
+
+.linksTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: token(text-muted);
+  margin: 0 0 token(space-4) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.linksList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: token(space-6);
+  flex-wrap: wrap;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: token(space-2);
+  padding: token(space-2) token(space-4);
+  background: token(surface);
+  border: 1px solid token(border);
+  border-radius: token(radius);
+  color: token(text);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+
+  &:hover {
+    background: token(surface-2);
+    border-color: token(primary);
+    color: token(primary);
+    transform: translateY(-2px);
+  }
+}
+
+// Decorative Background
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, token(primary), token(primary-hover));
+  opacity: 0.3;
+  animation: float 20s ease-in-out infinite;
+
+  &:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+  }
+
+  &:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    left: -50px;
+    animation-delay: 5s;
+  }
+
+  &:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 10%;
+    animation-delay: 10s;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(50px, -50px) rotate(90deg);
+  }
+  50% {
+    transform: translate(100px, 0) rotate(180deg);
+  }
+  75% {
+    transform: translate(50px, 50px) rotate(270deg);
+  }
+}
