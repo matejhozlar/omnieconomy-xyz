@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import config from "@omnieconomy/shared-config";
 import styles from "./DownloadModal.module.scss";
 
 interface DownloadModalProps {
@@ -31,7 +32,7 @@ export default function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
 
         <div className={styles.options}>
           <a
-            href="https://www.curseforge.com/minecraft/mc-mods/omnieconomy"
+            href={config.LINKS.CURSEFORGE}
             className={styles.option}
             target="_blank"
             rel="noopener noreferrer"
@@ -57,7 +58,7 @@ export default function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           </a>
 
           <a
-            href="https://modrinth.com/mod/omnieconomy"
+            href={config.LINKS.MODRINTH}
             className={styles.option}
             target="_blank"
             rel="noopener noreferrer"
