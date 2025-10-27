@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import DownloadModal from "../DownloadModal/DownloadModal";
+import config from "../../config";
 import styles from "./Header.module.scss";
 
 export default function Header() {
@@ -61,7 +62,7 @@ export default function Header() {
               Tools
             </Link>
             <a
-              href="https://github.com/matejhozlar/omnieconomy"
+              href={config.LINKS.GITHUB}
               className={styles.navLink}
               onClick={closeMenu}
               target="_blank"
@@ -70,7 +71,7 @@ export default function Header() {
               GitHub
             </a>
             <a
-              href="https://discord.gg/yourserver"
+              href={config.LINKS.DISCORD}
               className={styles.navLink}
               onClick={closeMenu}
               target="_blank"

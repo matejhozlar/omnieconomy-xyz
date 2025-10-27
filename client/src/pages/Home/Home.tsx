@@ -20,6 +20,7 @@ import {
 import DownloadModal from "../../components/DownloadModal/DownloadModal";
 import { useDownloadStats, formatDownloads } from "./hooks/UseDownloadStats";
 import ROADMAP_ITEMS from "./utils/ROADMAP_ITEMS";
+import config from "../../config";
 import styles from "./Home.module.scss";
 
 export default function Home() {
@@ -211,12 +212,12 @@ export default function Home() {
             <div className={styles.statLabel}>Core Features</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>8</div>
-            <div className={styles.statLabel}>Bill Denominations</div>
+            <div className={styles.statNumber}>1</div>
+            <div className={styles.statLabel}>Supported Loaders</div>
           </div>
           <div className={styles.statCard}>
-            <div className={styles.statNumber}>100%</div>
-            <div className={styles.statLabel}>Open Source</div>
+            <div className={styles.statNumber}>1</div>
+            <div className={styles.statLabel}>Supported Versions</div>
           </div>
         </div>
       </section>
@@ -407,13 +408,13 @@ export default function Home() {
             OmniEconomy integrates seamlessly with popular mods
           </p>
           <div className={styles.compatGrid}>
-            <a href="https://www.curseforge.com/minecraft/mc-mods/create">
+            <a href={config.LINKS.CREATE}>
               <div className={styles.compatItem}>
                 <div className={styles.compatCheck}>✓</div>
                 <span>Create</span>
               </div>
             </a>
-            <a href="https://www.curseforge.com/minecraft/mc-mods/afkstatus">
+            <a href={config.LINKS.AFKSTATUS}>
               <div className={styles.compatItem}>
                 <div className={styles.compatCheck}>✓</div>
                 <span>AFKStatus</span>
@@ -452,7 +453,7 @@ export default function Home() {
           </div>
           <div className={styles.ctaLinks}>
             <a
-              href="https://discord.gg/yourserver"
+              href={config.LINKS.DISCORD}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -462,7 +463,7 @@ export default function Home() {
             <Link to="/docs">View Documentation</Link>
             <span>•</span>
             <a
-              href="https://github.com/matejhozlar/omnieconomy"
+              href={config.LINKS.GITHUB}
               target="_blank"
               rel="noopener noreferrer"
             >
