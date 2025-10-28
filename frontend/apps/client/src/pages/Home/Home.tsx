@@ -17,7 +17,11 @@ import {
   Database,
 } from "lucide-react";
 import { DownloadModal } from "@omnieconomy/shared-components";
-import { useDownloadStats, formatDownloads } from "./hooks/UseDownloadStats";
+import {
+  useDownloadStats,
+  formatDownloads,
+} from "../../hooks/UseDownloadStats";
+import { useTelemetryStats } from "../../hooks/useTelemetryStats";
 import ROADMAP_ITEMS from "./utils/ROADMAP_ITEMS";
 import config from "@omnieconomy/shared-config";
 import styles from "./Home.module.scss";
@@ -25,6 +29,8 @@ import styles from "./Home.module.scss";
 export default function Home() {
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const { downloads, loading: downloadsLoading } = useDownloadStats();
+  const { stats: telemetry, loading: telemetryLoading } =
+    useTelemetryStats(120_000);
   const heroRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
@@ -209,9 +215,20 @@ export default function Home() {
             </div>
             <div className={styles.statLabel}>Total Downloads</div>
           </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>12+</div>
-            <div className={styles.statLabel}>Core Features</div>
+          <div
+            className={styles.statCard}
+            title={
+              telemetry?.timestamp
+                ? `Updated ${new Date(telemetry.timestamp).toLocaleString()}`
+                : undefined
+            }
+          >
+            <div className={styles.statNumber}>
+              {telemetryLoading
+                ? "..."
+                : formatDownloads(telemetry?.totalServers ?? 0)}
+            </div>
+            <div className={styles.statLabel}>Total Servers</div>
           </div>
           <div className={styles.statCard}>
             <div className={styles.statNumber}>1</div>
