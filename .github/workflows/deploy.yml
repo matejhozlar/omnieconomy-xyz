@@ -127,7 +127,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Add remote (fix URL format)
-          git remote add origin "https://${DEPLOY_TOKEN}@github.com/YOUR_USERNAME/omnieconomy-xyz-prod.git"
+          git remote add origin "https://${DEPLOY_TOKEN}@github.com/matejhozlar/omnieconomy-xyz-prod.git"
 
           # Fetch if repo exists
           git fetch origin main || echo "Remote branch doesn't exist yet, will create it"
