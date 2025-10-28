@@ -1,0 +1,156 @@
+name: Build and Push to Deployment Repo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: |
+            frontend/package-lock.json
+            server/package-lock.json
+
+      - name: Install Backend Dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Build Backend
+        working-directory: ./server
+        run: npm run build
+
+      - name: Install Frontend Root Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build Shared Packages
+        working-directory: ./frontend
+        run: npm run build:shared
+
+      - name: Build Client App
+        working-directory: ./frontend/apps/client
+        run: |
+          npm run build
+          echo "Client build completed"
+
+      - name: Build Wiki App
+        working-directory: ./frontend/apps/wiki
+        run: |
+          npm run build
+          echo "Wiki build completed"
+
+      - name: Prepare Deployment Directory
+        run: |
+          mkdir -p out/server
+          mkdir -p out/frontend/client
+          mkdir -p out/frontend/wiki
+
+          # Copy backend (built files + package.json)
+          cp -r server/dist out/server/
+          cp server/package*.json out/server/
+
+          # Copy frontend builds
+          cp -r frontend/apps/client/dist/* out/frontend/client/
+          cp -r frontend/apps/wiki/dist/* out/frontend/wiki/
+
+          echo "Deployment directory prepared"
+
+      - name: Create Production .gitignore
+        run: |
+          cat > out/.gitignore <<EOF
+          # Dependencies
+          node_modules/
+
+          # Environment variables
+          .env
+          .env.local
+          .env.production
+
+          # Logs
+          logs/
+          *.log
+          npm-debug.log*
+
+          # Temporary files
+          tmp/
+          temp/
+
+          # OS files
+          .DS_Store
+          Thumbs.db
+          EOF
+
+      - name: Create Production README
+        run: |
+          cat > out/README.md <<EOF
+          # OmniEconomy Production Build
+
+          Automated deployment created on: $(date +'%Y-%m-%d %H:%M:%S')
+
+          ## Structure
+          - \`/server\` - Built backend server
+          - \`/frontend/client\` - Built client application
+          - \`/frontend/wiki\` - Built wiki application
+
+          ## Deployment
+          1. Install backend dependencies: \`cd server && npm ci --production\`
+          2. Set environment variables
+          3. Start backend: \`npm start\`
+          4. Serve frontend with nginx or similar
+
+          ## Environment Variables Required
+          - DATABASE_URL
+          - JWT_SECRET
+          - PORT
+          (See original repo for full list)
+          EOF
+
+      - name: Create Deployment Script
+        run: |
+          cat > out/deploy.sh <<'EOF'
+          #!/bin/bash
+          set -e
+
+          echo "Starting OmniEconomy Deployment..."
+
+          # Backend
+          echo "Installing backend dependencies..."
+          cd server
+          npm ci --production
+          cd ..
+
+          # Check for .env
+          if [ ! -f server/.env ]; then
+            echo "Warning: backend/.env not found!"
+            echo "Please create it with required environment variables"
+          fi
+
+          echo "Deployment preparation complete!"
+          echo "Start backend with: cd server && npm start"
+          echo "Serve frontend/client and frontend/wiki with your web server"
+          EOF
+
+          chmod +x out/deploy.sh
+
+      - name: Push to Deployment Repository
+        run: |
+          cd out
+          git init
+          git checkout -b main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add origin https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/matejhozlar/omnieconomy-xyz-prod.git
+          git add .
+          git commit -m "Automated deployment on $(date +'%Y-%m-%d %H:%M:%S')"
+          git push -f origin main
+
+          echo "Successfully pushed to deployment repository"
