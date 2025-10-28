@@ -113,15 +113,32 @@ jobs:
           chmod +x out/deploy.sh
 
       - name: Push to Deployment Repository
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
           cd out
+
+          # Initialize git
           git init
           git checkout -b main
+
+          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add origin https://x-access-token:${{ secrets.DEPLOY_TOKEN }}@github.com/matejhozlar/omnieconomy-xyz-prod.git
-          git add .
-          git commit -m "Automated deployment on $(date +'%Y-%m-%d %H:%M:%S')"
+
+          # Add remote (fix URL format)
+          git remote add origin "https://${DEPLOY_TOKEN}@github.com/YOUR_USERNAME/omnieconomy-deployment.git"
+
+          # Fetch if repo exists
+          git fetch origin main || echo "Remote branch doesn't exist yet, will create it"
+
+          # Add all files
+          git add -A
+
+          # Commit
+          git commit -m "Automated deployment on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+
+          # Push (force push to overwrite)
           git push -f origin main
 
           echo "Successfully pushed to deployment repository"
