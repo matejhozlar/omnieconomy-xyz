@@ -76,10 +76,22 @@ export const WIKI_METADATA: WikiMetadata = {
       modVersion: "0.1.1",
       lastUpdated: "2025-10-27",
     },
+    "admin/telemetry": {
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
+    },
 
-    "advanced/custom-drops": {
+    "changelogs/v0-1-0": {
+      modVersion: "0.1.0",
+      lastUpdated: "2025-10-28",
+    },
+    "changelogs/v0-1-1": {
       modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      lastUpdated: "2025-10-28",
+    },
+    "changelogs/v0-1-2": {
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
   },
 };

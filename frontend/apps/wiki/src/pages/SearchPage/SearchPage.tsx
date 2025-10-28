@@ -10,6 +10,10 @@ export default function SearchPage() {
   const [results, setResults] = useState<ReturnType<typeof searchWiki>>([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [query]);
+
+  useEffect(() => {
     if (query.trim()) {
       const searchResults = searchWiki(query);
       setResults(searchResults);

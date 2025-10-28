@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, Home } from "lucide-react";
 import { getCategoryById } from "../../data/categories";
@@ -6,6 +7,10 @@ import styles from "./CategoryPage.module.scss";
 export default function CategoryPage() {
   const { category: categoryId } = useParams<{ category: string }>();
   const category = categoryId ? getCategoryById(categoryId) : undefined;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryId]);
 
   if (!category) {
     return (

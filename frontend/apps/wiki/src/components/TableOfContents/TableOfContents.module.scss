@@ -40,6 +40,47 @@ $header-height: 80px;
   gap: 2px;
 }
 
+.tocSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: token(space-1);
+}
+
+.tocH1Wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.expandButton {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: token(text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+
+  svg {
+    transition: transform 0.2s;
+  }
+
+  &:hover {
+    background: token(surface-2);
+    color: token(text);
+  }
+
+  &.expanded svg {
+    transform: rotate(90deg);
+  }
+}
+
 .tocItem {
   display: block;
   width: 100%;
@@ -71,16 +112,35 @@ $header-height: 80px;
 }
 
 .level1 {
-  padding-left: token(space-3);
   font-weight: 600;
+  padding-left: token(space-3);
+
+  &.noSubsections {
+    margin-left: 22px;
+  }
+}
+
+.tocSubsections {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 22px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .level2 {
-  padding-left: token(space-5);
-}
-
-.level3 {
-  padding-left: token(space-7);
+  padding-left: token(space-3);
   font-size: 0.75rem;
 }
 

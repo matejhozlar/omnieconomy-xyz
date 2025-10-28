@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ChevronRight } from "lucide-react";
 import styles from "./TableOfContents.module.scss";
 
 interface TOCItem {
@@ -7,18 +8,26 @@ interface TOCItem {
   level: number;
 }
 
+interface TOCSection {
+  h1: TOCItem;
+  h2s: TOCItem[];
+}
+
 interface TableOfContentsProps {
   contentRef: React.RefObject<HTMLDivElement>;
 }
 
 export default function TableOfContents({ contentRef }: TableOfContentsProps) {
-  const [headings, setHeadings] = useState<TOCItem[]>([]);
+  const [sections, setSections] = useState<TOCSection[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     if (!contentRef.current) return;
 
-    const elements = contentRef.current.querySelectorAll("h1, h2, h3");
+    const elements = contentRef.current.querySelectorAll("h1, h2");
     const items: TOCItem[] = Array.from(elements).map((element) => {
       if (!element.id) {
         element.id =
@@ -35,7 +44,22 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
       };
     });
 
-    setHeadings(items);
+    const grouped: TOCSection[] = [];
+    let currentSection: TOCSection | null = null;
+
+    items.forEach((item) => {
+      if (item.level === 1) {
+        currentSection = { h1: item, h2s: [] };
+        grouped.push(currentSection);
+      } else if (item.level === 2 && currentSection) {
+        currentSection.h2s.push(item);
+      }
+    });
+
+    setSections(grouped);
+
+    const allH1Ids = grouped.map((section) => section.h1.id);
+    setExpandedSections(new Set(allH1Ids));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -67,24 +91,73 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
     }
   };
 
-  if (headings.length === 0) return null;
+  const toggleSection = (h1Id: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(h1Id)) {
+        next.delete(h1Id);
+      } else {
+        next.add(h1Id);
+      }
+      return next;
+    });
+  };
+
+  if (sections.length === 0) return null;
 
   return (
     <aside className={styles.toc}>
       <div className={styles.tocContent}>
         <div className={styles.tocTitle}>On This Page</div>
         <nav className={styles.tocNav}>
-          {headings.map((heading) => (
-            <button
-              key={heading.id}
-              onClick={() => handleClick(heading.id)}
-              className={`${styles.tocItem} ${
-                styles[`level${heading.level}`]
-              } ${activeId === heading.id ? styles.active : ""}`}
-            >
-              {heading.text}
-            </button>
-          ))}
+          {sections.map((section) => {
+            const isExpanded = expandedSections.has(section.h1.id);
+            const hasSubsections = section.h2s.length > 0;
+
+            return (
+              <div key={section.h1.id} className={styles.tocSection}>
+                <div className={styles.tocH1Wrapper}>
+                  {hasSubsections && (
+                    <button
+                      onClick={() => toggleSection(section.h1.id)}
+                      className={`${styles.expandButton} ${
+                        isExpanded ? styles.expanded : ""
+                      }`}
+                      aria-label={
+                        isExpanded ? "Collapse section" : "Expand section"
+                      }
+                    >
+                      <ChevronRight size={14} />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleClick(section.h1.id)}
+                    className={`${styles.tocItem} ${styles.level1} ${
+                      activeId === section.h1.id ? styles.active : ""
+                    } ${!hasSubsections ? styles.noSubsections : ""}`}
+                  >
+                    {section.h1.text}
+                  </button>
+                </div>
+
+                {hasSubsections && isExpanded && (
+                  <div className={styles.tocSubsections}>
+                    {section.h2s.map((h2) => (
+                      <button
+                        key={h2.id}
+                        onClick={() => handleClick(h2.id)}
+                        className={`${styles.tocItem} ${styles.level2} ${
+                          activeId === h2.id ? styles.active : ""
+                        }`}
+                      >
+                        {h2.text}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
       </div>
     </aside>

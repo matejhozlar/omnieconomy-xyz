@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { WIKI_CATEGORIES } from "../../data/categories";
@@ -6,6 +7,10 @@ import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
   useEqualHeights(`.${styles.categoryCard}`);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className={styles.home}>

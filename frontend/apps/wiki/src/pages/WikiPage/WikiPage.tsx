@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
+import { LoadingSpinner } from "@omnieconomy/shared-components";
 import { getCategoryById, getPage } from "../../data/categories";
 import TableOfContents from "../../components/TableOfContents/TableOfContents";
 import OutdatedBanner from "@/components/OutdatedBanner/OutdatedBanner";
@@ -26,6 +27,10 @@ export default function WikiPage() {
   const category = categoryId ? getCategoryById(categoryId) : undefined;
   const page =
     categoryId && pageSlug ? getPage(categoryId, pageSlug) : undefined;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryId, pageSlug]);
 
   useEffect(() => {
     if (!page?.contentPath) {
@@ -103,12 +108,7 @@ export default function WikiPage() {
           )}
 
           <div className={styles.content} ref={contentRef}>
-            {loading && (
-              <div className={styles.loading}>
-                <div className={styles.spinner} />
-                <p>Loading content...</p>
-              </div>
-            )}
+            {loading && <LoadingSpinner message="Loading content..." />}
 
             {error && (
               <div className={styles.error}>
@@ -119,10 +119,7 @@ export default function WikiPage() {
             {!loading && !error && content && (
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
-                rehypePlugins={[
-                  rehypeRaw, // ← Add this to parse HTML
-                  rehypeHighlight,
-                ]}
+                rehypePlugins={[rehypeRaw, rehypeHighlight]}
                 components={{
                   a: ({ href, children, ...props }) => {
                     const isExternal = href?.startsWith("http");
