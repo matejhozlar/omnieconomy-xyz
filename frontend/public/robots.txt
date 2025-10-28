@@ -1,0 +1,5 @@
+# frontend/apps/client/public/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://omnieconomy.com/sitemap.xml

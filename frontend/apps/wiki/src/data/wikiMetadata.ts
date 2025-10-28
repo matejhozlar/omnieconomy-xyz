@@ -25,56 +25,56 @@ export const WIKI_METADATA: WikiMetadata = {
 
   pages: {
     "users/getting-started": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
       updateNotes: "Initial comprehensive guide",
     },
     "users/items-and-recipes": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
       updateNotes: "Added lottery commands",
     },
     "users/getting-money": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/commands": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/currency": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/atm-blocks": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/daily-limits": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/mod-integrations": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/enchantments": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "users/need-help": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
 
     "developers/api-overview": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
 
     "admin/installation": {
-      modVersion: "0.1.1",
-      lastUpdated: "2025-10-27",
+      modVersion: "0.1.2",
+      lastUpdated: "2025-10-28",
     },
     "admin/telemetry": {
       modVersion: "0.1.2",

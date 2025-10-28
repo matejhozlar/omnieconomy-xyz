@@ -1,13 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wiki</title>
+
+    <!-- Primary Meta Tags -->
+    <title>OmniEconomy Wiki - Complete Documentation</title>
+    <meta name="title" content="OmniEconomy Wiki - Complete Documentation" />
+    <meta
+      name="description"
+      content="Complete documentation for OmniEconomy - The ultimate economy system for Minecraft. Learn about commands, features, configuration, and API integration."
+    />
+    <meta
+      name="keywords"
+      content="Minecraft, Economy, Mod, NeoForge, Documentation, Wiki, OmniEconomy, Minecraft Economy, Server Plugin"
+    />
+    <meta name="author" content="OmniEconomy" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/logo/favicon.ico" />
+    <link rel="icon" type="image/png" href="/assets/logo/logo.png" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#22c55e" />
+    <meta name="msapplication-TileColor" content="#22c55e" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wiki.omnieconomy.com/" />
+    <meta
+      property="og:title"
+      content="OmniEconomy Wiki - Complete Documentation"
+    />
+    <meta
+      property="og:description"
+      content="Complete documentation for OmniEconomy - The ultimate economy system for Minecraft. Learn about commands, features, configuration, and API integration."
+    />
+    <meta
+      property="og:image"
+      content="https://omnieconomy.com/og-image-wiki.png"
+    />
+    <meta property="og:site_name" content="OmniEconomy" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://wiki.omnieconomy.com/" />
+    <meta
+      property="twitter:title"
+      content="OmniEconomy Wiki - Complete Documentation"
+    />
+    <meta
+      property="twitter:description"
+      content="Complete documentation for OmniEconomy - The ultimate economy system for Minecraft."
+    />
+    <meta
+      property="twitter:image"
+      content="https://omnieconomy.com/og-image-wiki.png"
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://wiki.omnieconomy.com/" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "OmniEconomy Wiki",
+        "url": "https://wiki.omnieconomy.com/",
+        "description": "Complete documentation for OmniEconomy Minecraft mod",
+        "publisher": {
+          "@type": "Organization",
+          "name": "OmniEconomy",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://omnieconomy.com/assets/logo/logo.png"
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function () {
+        try {
+          var key = "theme";
+          var saved = localStorage.getItem(key);
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {}
+      })();
+    </script>
   </body>
 </html>
