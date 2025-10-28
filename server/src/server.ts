@@ -7,13 +7,14 @@ import http from "node:http";
 import { createApp } from "./app";
 import registerRoutes from "./app/routes";
 import logger from "./logger";
+import db from "./db";
 
 const PORT = Number(process.env.PORT);
 
 const app = createApp();
 
 try {
-  registerRoutes(app);
+  registerRoutes(app, db);
   logger.info("Routes registered");
 } catch (error) {
   logger.error("Failed to register routes:", error);

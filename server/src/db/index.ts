@@ -21,7 +21,8 @@ const { IDLE_TIMEOUT_MS, CONNECTION_TIMEOUT_MS } = config.DatabaseConfig;
 const db = new pg.Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
-  database: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
   idleTimeoutMillis: IDLE_TIMEOUT_MS,
   connectionTimeoutMillis: CONNECTION_TIMEOUT_MS,
