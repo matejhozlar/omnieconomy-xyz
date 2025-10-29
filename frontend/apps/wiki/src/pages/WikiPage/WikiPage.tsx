@@ -103,9 +103,13 @@ export default function WikiPage() {
             <p className={styles.description}>{page.description}</p>
           </header>
 
-          {categoryId && pageSlug && !loading && !error && (
-            <OutdatedBanner categoryId={categoryId} pageSlug={pageSlug} />
-          )}
+          {categoryId &&
+            pageSlug &&
+            !loading &&
+            !error &&
+            categoryId !== "changelogs" && (
+              <OutdatedBanner categoryId={categoryId} pageSlug={pageSlug} />
+            )}
 
           <div className={styles.content} ref={contentRef}>
             {loading && <LoadingSpinner message="Loading content..." />}

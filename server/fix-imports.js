@@ -56,7 +56,7 @@ function fixImports(dir) {
           }
 
           console.warn(
-            `⚠️  Could not resolve: ${importPath} in ${path.relative(
+            `Could not resolve: ${importPath} in ${path.relative(
               distDir,
               filePath
             )}`
@@ -72,4 +72,4 @@ function fixImports(dir) {
 
 console.log("Fixing import paths...");
 fixImports(distDir);
-console.log("✅ Import paths fixed!");
+console.log("Import paths fixed!");
