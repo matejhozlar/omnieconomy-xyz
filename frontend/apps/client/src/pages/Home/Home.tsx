@@ -451,7 +451,8 @@ export default function Home() {
         <div className={styles.ctaContent}>
           <h2 className={styles.ctaTitle}>Ready to Get Started?</h2>
           <p className={styles.ctaDescription}>
-            Join thousands of servers already using OmniEconomy
+            Join {telemetry?.totalServers ?? "other"} servers already using
+            OmniEconomy
           </p>
           <div className={styles.ctaButtons}>
             <a
