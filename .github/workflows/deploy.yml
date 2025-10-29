@@ -53,8 +53,12 @@ jobs:
           # Copy backend package.json to root
           cp server/package*.json out/
 
-          # Copy backend built files to /server
+          # Copy ENTIRE server directory structure (not just dist contents)
           cp -r server/dist/* out/server/
+          # Also copy any config files if they're not in dist
+          if [ -d "server/src/config" ]; then
+            cp -r server/src/config out/server/config 2>/dev/null || true
+          fi
 
           # Copy frontend builds directly
           cp -r frontend/apps/client/dist/* out/client/
