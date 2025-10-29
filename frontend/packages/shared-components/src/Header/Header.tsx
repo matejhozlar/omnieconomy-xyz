@@ -152,6 +152,11 @@ export default function Header() {
         </div>
       </header>
 
+      <div
+        className={`${styles.navBackdrop} ${mobileMenuOpen ? styles.open : ""}`}
+        onClick={closeMenu}
+      />
+
       <DownloadModal
         isOpen={isDownloadModalOpen}
         onClose={closeDownloadModal}

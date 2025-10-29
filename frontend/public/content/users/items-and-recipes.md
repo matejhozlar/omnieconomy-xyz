@@ -84,7 +84,7 @@ Physical currency that exists as items in your inventory. Used for trading, shop
 
 </div>
 
-**💡 Note**: Bills cannot be crafted. Obtain them through mob drops, daily rewards, or ATM withdrawals.
+> **💡 Note**: Bills cannot be crafted. Obtain them through mob drops, daily rewards, or ATM withdrawals.
 
 ---
 
@@ -113,9 +113,9 @@ Physical currency that exists as items in your inventory. Used for trading, shop
   </div>
 </div>
 
-#### Crafting
+**Recipe:**
 
-Currently not craftable - obtained through other means.
+![Bank Card Recipe](/assets/mod/recipes/bank-card-recipe.png)
 
 ---
 
@@ -138,11 +138,6 @@ Currently not craftable - obtained through other means.
 
 ![Circuit Board Recipe](/assets/mod/recipes/circuit-board-recipe.png)
 
-```
-[Copper Ingot] [Gold Ingot]
-[Redstone]     [Iron Ingot]
-```
-
 ---
 
 ### Keypad
@@ -154,7 +149,7 @@ Currently not craftable - obtained through other means.
   <div class="component-details">
     <h4>Keypad</h4>
     <p class="item-id"><code>omnieconomy:keypad</code></p>
-    <p>Input device for ATM blocks. Required for user interaction.</p>
+    <p>Essential component for crafting ATM blocks. Represents the keypad.</p>
   </div>
 </div>
 
@@ -162,60 +157,33 @@ Currently not craftable - obtained through other means.
 
 ![Keypad Recipe](/assets/mod/recipes/keypad-recipe.png)
 
-```
-[Button] [Button] [Button]
-         [Iron Ingot]
-```
-
 ---
 
 ## Blocks
 
 ### ATM Block
 
-<div class="block-showcase">
-  <div class="block-preview">
-    <img src="/assets/mod/blocks/atm/atm_preview.png" alt="ATM Block" width="128" />
-  </div>
-  <div class="block-info">
-    <h3>ATM Block</h3>
+<div class="item-showcase">
+  <div class="item-info">
+    <h3>ATM</h3>
     <p class="item-id"><code>omnieconomy:atm</code></p>
-    
-    <h4>Description</h4>
-    <p>The central banking block. Place anywhere to deposit and withdraw currency.</p>
-    
-    <h4>Features</h4>
-    <ul>
-      <li>✅ Deposit all bills from inventory</li>
-      <li>✅ Withdraw specific denominations</li>
-      <li>✅ Automatic bill optimization</li>
-      <li>✅ PIN entry animation</li>
-      <li>✅ Keyboard navigation support</li>
-    </ul>
-    
-    <h4>Usage</h4>
-    <p>Right-click the ATM block to open the banking interface. You can deposit all currency from your inventory or withdraw exact amounts.</p>
-    
+    <p class="item-description">
+      Used for currency transactions. Players can check their balance, deposit, and withdraw money.
+    </p>
+    <p><strong>Features</strong></p>
+    <ol>
+      <li>Deposit all bills from inventoryd</li>
+      <li>Withdraw specific denomination</li>
+      <li>Automatic bill optimization</li>
+      <li>Keyboard navigation support</li>
+    </ol>
     <p><a href="/users/atm-blocks">View detailed ATM guide →</a></p>
   </div>
 </div>
 
-#### Crafting Recipe
+**Recipe:**
 
 ![ATM Recipe](/assets/mod/recipes/atm-recipe.png)
-
-```
-[Iron Block]    [Circuit Board] [Iron Block]
-[Circuit Board] [Chest]         [Circuit Board]
-[Iron Block]    [Keypad]        [Iron Block]
-```
-
-**Materials needed:**
-
-- 4× Iron Block
-- 3× Circuit Board
-- 1× Chest
-- 1× Keypad
 
 ---
 
