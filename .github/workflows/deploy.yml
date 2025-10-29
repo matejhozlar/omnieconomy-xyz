@@ -53,12 +53,8 @@ jobs:
           # Copy backend package.json to root
           cp server/package*.json out/
 
-          # Copy ENTIRE server directory structure (not just dist contents)
+          # Copy backend built files to /server
           cp -r server/dist/* out/server/
-          # Also copy any config files if they're not in dist
-          if [ -d "server/src/config" ]; then
-            cp -r server/src/config out/server/config 2>/dev/null || true
-          fi
 
           # Copy frontend builds directly
           cp -r frontend/apps/client/dist/* out/client/
@@ -86,10 +82,17 @@ jobs:
           4. Serve frontend with nginx or similar
 
           ## Environment Variables Required
-          - DATABASE_URL
-          - JWT_SECRET
+          - COOKIE_SECRET
+          - CURSEFORGE_API_KEY
+          - CURSEFORGE_PROJECT_ID
+          - DB_HOST
+          - DB_PASSWORD
+          - DB_PORT
+          - DB_USER
+          - DB_DATABASE
+          - MODRINTH_PROJECT_ID
+          - NODE_ENV
           - PORT
-          (See original repo for full list)
           EOF
 
       - name: Create Deployment Script
