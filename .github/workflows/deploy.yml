@@ -46,17 +46,19 @@ jobs:
 
       - name: Prepare Deployment Directory
         run: |
+          mkdir -p out/client
+          mkdir -p out/wiki
           mkdir -p out/server
-          mkdir -p out/frontend/client
-          mkdir -p out/frontend/wiki
 
-          # Copy backend (built files + package.json)
-          cp -r server/dist out/server/
-          cp server/package*.json out/server/
+          # Copy backend package.json to root
+          cp server/package*.json out/
 
-          # Copy frontend builds
-          cp -r frontend/apps/client/dist/* out/frontend/client/
-          cp -r frontend/apps/wiki/dist/* out/frontend/wiki/
+          # Copy backend built files to /server
+          cp -r server/dist/* out/server/
+
+          # Copy frontend builds directly
+          cp -r frontend/apps/client/dist/* out/client/
+          cp -r frontend/apps/wiki/dist/* out/wiki/
 
           echo "Deployment directory prepared"
 
@@ -68,12 +70,13 @@ jobs:
           Automated deployment created on: $(date +'%Y-%m-%d %H:%M:%S')
 
           ## Structure
-          - \`/server\` - Built backend server
-          - \`/frontend/client\` - Built client application
-          - \`/frontend/wiki\` - Built wiki application
+          - \`/client\` - Built client application
+          - \`/wiki\` - Built wiki application
+          - \`/server\` - Built backend server files
+          - \`package.json\` - Backend dependencies (root level)
 
           ## Deployment
-          1. Install backend dependencies: \`cd server && npm ci --production\`
+          1. Install backend dependencies: \`npm ci --production\`
           2. Set environment variables
           3. Start backend: \`npm start\`
           4. Serve frontend with nginx or similar
@@ -95,19 +98,17 @@ jobs:
 
           # Backend
           echo "Installing backend dependencies..."
-          cd server
           npm ci --production
-          cd ..
 
           # Check for .env
-          if [ ! -f server/.env ]; then
-            echo "Warning: backend/.env not found!"
+          if [ ! -f .env ]; then
+            echo "Warning: .env not found!"
             echo "Please create it with required environment variables"
           fi
 
           echo "Deployment preparation complete!"
-          echo "Start backend with: cd server && npm start"
-          echo "Serve frontend/client and frontend/wiki with your web server"
+          echo "Start backend with: npm start"
+          echo "Serve /client and /wiki with your web server"
           EOF
 
           chmod +x out/deploy.sh
