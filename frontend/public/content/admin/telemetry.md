@@ -148,7 +148,7 @@ This transparency ensures you always know when telemetry is active.
 
 ## Source Code
 
-The telemetry system is open source and can be reviewed here:
+The telemetry system is open source and can be reviewed [here](https://github.com/matejhozlar/omnieconomy/tree/neoforge-1.21.1/src/main/java/com/saunhardy/omnieconomy/telemetry):
 
 - `ServerIdentifier.java` - Server ID generation and storage
 - `TelemetryClient.java` - HTTP request handling

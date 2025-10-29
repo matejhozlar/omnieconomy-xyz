@@ -26,6 +26,16 @@ export default function Header() {
     setIsDownloadModalOpen(false);
   };
 
+  const getLogoPath = () => {
+    const currentOrigin = window.location.origin;
+
+    if (currentOrigin === config.ORIGINS.WIKI_ORIGIN) {
+      return "/assets/logo/logo-wiki.png";
+    }
+
+    return "/assets/logo/logo.png";
+  };
+
   useEffect(() => {
     const header = document.querySelector(`.${styles.header}`);
 
@@ -52,7 +62,7 @@ export default function Header() {
               onClick={closeMenu}
             >
               <div className={styles.logo}>
-                <img src="/assets/logo/logo.png" alt="OmniEconomy Logo" />
+                <img src={getLogoPath()} alt="OmniEconomy Logo" />
               </div>
               <span className={styles.name}>OmniEconomy</span>
             </a>

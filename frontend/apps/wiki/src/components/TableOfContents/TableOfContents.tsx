@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import styles from "./TableOfContents.module.scss";
 
@@ -23,6 +23,8 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set()
   );
+  const tocNavRef = useRef<HTMLDivElement>(null);
+  const tocAsideRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -58,8 +60,7 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
 
     setSections(grouped);
 
-    const allH1Ids = grouped.map((section) => section.h1.id);
-    setExpandedSections(new Set(allH1Ids));
+    setExpandedSections(new Set());
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -80,6 +81,33 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
       elements.forEach((element) => observer.unobserve(element));
     };
   }, [contentRef]);
+
+  useEffect(() => {
+    if (!activeId || !tocNavRef.current || !tocAsideRef.current) return;
+
+    const activeButton = tocNavRef.current.querySelector(
+      `[data-id="${activeId}"]`
+    );
+    if (!activeButton) return;
+
+    const tocContainer = tocAsideRef.current;
+
+    const buttonRect = activeButton.getBoundingClientRect();
+    const containerRect = tocContainer.getBoundingClientRect();
+
+    const containerMiddle = containerRect.height / 2;
+
+    const buttonRelativeTop =
+      buttonRect.top - containerRect.top + tocContainer.scrollTop;
+
+    const targetScrollTop =
+      buttonRelativeTop - containerMiddle + buttonRect.height / 2;
+
+    tocContainer.scrollTo({
+      top: targetScrollTop,
+      behavior: "smooth",
+    });
+  }, [activeId]);
 
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
@@ -103,13 +131,26 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
     });
   };
 
+  const isH1Active = (section: TOCSection) => {
+    const isExpanded = expandedSections.has(section.h1.id);
+
+    if (!isExpanded) {
+      return (
+        activeId === section.h1.id ||
+        section.h2s.some((h2) => h2.id === activeId)
+      );
+    }
+
+    return activeId === section.h1.id;
+  };
+
   if (sections.length === 0) return null;
 
   return (
-    <aside className={styles.toc}>
+    <aside className={styles.toc} ref={tocAsideRef}>
       <div className={styles.tocContent}>
         <div className={styles.tocTitle}>On This Page</div>
-        <nav className={styles.tocNav}>
+        <nav className={styles.tocNav} ref={tocNavRef}>
           {sections.map((section) => {
             const isExpanded = expandedSections.has(section.h1.id);
             const hasSubsections = section.h2s.length > 0;
@@ -132,8 +173,9 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
                   )}
                   <button
                     onClick={() => handleClick(section.h1.id)}
+                    data-id={section.h1.id}
                     className={`${styles.tocItem} ${styles.level1} ${
-                      activeId === section.h1.id ? styles.active : ""
+                      isH1Active(section) ? styles.active : ""
                     } ${!hasSubsections ? styles.noSubsections : ""}`}
                   >
                     {section.h1.text}
@@ -146,6 +188,7 @@ export default function TableOfContents({ contentRef }: TableOfContentsProps) {
                       <button
                         key={h2.id}
                         onClick={() => handleClick(h2.id)}
+                        data-id={h2.id}
                         className={`${styles.tocItem} ${styles.level2} ${
                           activeId === h2.id ? styles.active : ""
                         }`}
