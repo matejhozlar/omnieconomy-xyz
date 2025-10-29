@@ -25,11 +25,7 @@ export default function PageFeedback({
   //   });
 
   useEffect(() => {
-    fetch(
-      `${
-        import.meta.env.VITE_API_URL
-      }/api/feedback/check/${categoryId}/${pageSlug}`
-    )
+    fetch(`/api/feedback/check/${categoryId}/${pageSlug}`)
       .then((res) => res.json())
       .then((data) => setHasRated(data.hasRated))
       .catch(() => {});
@@ -59,21 +55,18 @@ export default function PageFeedback({
     setState("submitting");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/feedback`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            category: categoryId,
-            page: pageSlug,
-            rating: selectedRating,
-            feedback: feedback || undefined,
-          }),
-        }
-      );
+      const response = await fetch(`/api/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          category: categoryId,
+          page: pageSlug,
+          rating: selectedRating,
+          feedback: feedback || undefined,
+        }),
+      });
 
       let data;
       try {
@@ -96,9 +89,7 @@ export default function PageFeedback({
 
         try {
           const statsResponse = await fetch(
-            `${
-              import.meta.env.VITE_API_URL
-            }/api/feedback/stats/${categoryId}/${pageSlug}`
+            `/api/feedback/stats/${categoryId}/${pageSlug}`
           );
           if (statsResponse.ok) {
             // const statsData = await statsResponse.json();
