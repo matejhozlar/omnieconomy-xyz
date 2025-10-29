@@ -82,7 +82,10 @@ export default function Sidebar({ onSearchClick }: SidebarProps) {
 
                   {category.pages && category.pages.length > 0 && (
                     <div className={styles.pages}>
-                      {category.pages.map((page) => (
+                      {(category.id === "changelogs"
+                        ? category.pages.slice(0, 5)
+                        : category.pages
+                      ).map((page) => (
                         <Link
                           key={page.slug}
                           to={`/${category.id}/${page.slug}`}
