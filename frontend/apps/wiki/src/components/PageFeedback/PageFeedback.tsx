@@ -10,6 +10,8 @@ interface PageFeedbackProps {
 type FeedbackState = "idle" | "submitting" | "submitted" | "error";
 type Rating = "helpful" | "not_helpful" | null;
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
+
 export default function PageFeedback({
   categoryId,
   pageSlug,
@@ -25,7 +27,7 @@ export default function PageFeedback({
   //   });
 
   useEffect(() => {
-    fetch(`/api/feedback/check/${categoryId}/${pageSlug}`)
+    fetch(`${API_BASE}/api/feedback/check/${categoryId}/${pageSlug}`)
       .then((res) => res.json())
       .then((data) => setHasRated(data.hasRated))
       .catch(() => {});
@@ -55,7 +57,7 @@ export default function PageFeedback({
     setState("submitting");
 
     try {
-      const response = await fetch(`/api/feedback`, {
+      const response = await fetch(`${API_BASE}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +91,7 @@ export default function PageFeedback({
 
         try {
           const statsResponse = await fetch(
-            `/api/feedback/stats/${categoryId}/${pageSlug}`
+            `${API_BASE}/api/feedback/stats/${categoryId}/${pageSlug}`
           );
           if (statsResponse.ok) {
             // const statsData = await statsResponse.json();
