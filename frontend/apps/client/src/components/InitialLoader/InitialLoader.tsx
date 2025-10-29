@@ -22,7 +22,6 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
       if (currentProgress >= 100) {
         currentProgress = 100;
         clearInterval(timer);
-        // Start exit animation
         setTimeout(() => {
           setIsExiting(true);
           setTimeout(onComplete, 800);
@@ -47,7 +46,7 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
         </div>
 
         <h1 className={styles.title}>OmniEconomy</h1>
-        <p className={styles.subtitle}>Loading your economy...</p>
+        <p className={styles.subtitle}>Loading...</p>
 
         <div className={styles.progressContainer}>
           <div className={styles.progressBar}>
@@ -62,7 +61,7 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
         <div className={styles.loadingMessage}>
           {progress < 25 && "Initializing economy system..."}
           {progress >= 25 && progress < 50 && "Loading currency data..."}
-          {progress >= 50 && progress < 75 && "Setting up ATM network..."}
+          {progress >= 50 && progress < 75 && "Setting up network..."}
           {progress >= 75 && progress < 100 && "Finalizing setup..."}
           {progress >= 100 && "Ready!"}
         </div>
