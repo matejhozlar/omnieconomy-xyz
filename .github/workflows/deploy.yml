@@ -28,6 +28,10 @@ jobs:
         working-directory: ./server
         run: npm run build
 
+      - name: Fix Backend Imports
+        wokring-directory: ./server
+        run: node fix-imports.js
+
       - name: Install Frontend Root Dependencies
         working-directory: ./frontend
         run: npm ci
