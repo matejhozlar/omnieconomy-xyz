@@ -155,5 +155,67 @@ export default function createTelemetryRoutes(db: Pool) {
     }
   });
 
+  /**
+   * GET /api/telemetry/badge
+   * Returns an SVG badge showing server count
+   */
+  router.get("/telemetry/badge", async (req: Request, res: Response) => {
+    try {
+      const result = await db.query("SELECT COUNT(*) as count FROM servers");
+      const serverCount = parseInt(result.rows[0].count);
+
+      const label = "Servers";
+      const value = serverCount.toString();
+      const color = "#22c55e";
+
+      const labelWidth = label.length * 6 + 10;
+      const valueWidth = value.length * 7 + 10;
+      const totalWidth = labelWidth + valueWidth;
+
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="20">
+          <linearGradient id="b" x2="0" y2="100%">
+            <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".1"/>
+          </linearGradient>
+          <mask id="a">
+            <rect width="${totalWidth}" height="20" rx="3" fill="#fff"/>
+          </mask>
+          <g mask="url(#a)">
+            <path fill="#555" d="M0 0h${labelWidth}v20H0z"/>
+            <path fill="${color}" d="M${labelWidth} 0h${valueWidth}v20H${labelWidth}z"/>
+            <path fill="url(#b)" d="M0 0h${totalWidth}v20H0z"/>
+          </g>
+          <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+            <text x="${
+              labelWidth / 2
+            }" y="15" fill="#010101" fill-opacity=".3">${label}</text>
+            <text x="${labelWidth / 2}" y="14">${label}</text>
+            <text x="${
+              labelWidth + valueWidth / 2
+            }" y="15" fill="#010101" fill-opacity=".3">${value}</text>
+            <text x="${labelWidth + valueWidth / 2}" y="14">${value}</text>
+          </g>
+        </svg>
+      `.trim();
+
+      res.setHeader("Content-Type", "image/svg+xml");
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.send(svg);
+    } catch (error) {
+      logger.error("Error generating server badge:", error);
+
+      const errorSvg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="20">
+          <rect width="100" height="20" fill="#e74c3c"/>
+          <text x="50" y="14" fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">Error</text>
+        </svg>
+      `.trim();
+
+      res.setHeader("Content-Type", "image/svg+xml");
+      res.send(errorSvg);
+    }
+  });
+
   return router;
 }
