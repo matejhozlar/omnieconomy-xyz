@@ -4,6 +4,7 @@
 
 | Command                  | Description                                 |
 | ------------------------ | ------------------------------------------- |
+| `/omniecon help`         | List all available commands                 |
 | `/money`                 | Check your account balance                  |
 | `/daily`                 | Claim your daily reward (once per 24 hours) |
 | `/pay <player> <amount>` | Send money to another player                |

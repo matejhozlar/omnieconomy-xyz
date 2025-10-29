@@ -9,6 +9,7 @@ import { LoadingSpinner } from "@omnieconomy/shared-components";
 import { getCategoryById, getPage } from "../../data/categories";
 import TableOfContents from "../../components/TableOfContents/TableOfContents";
 import OutdatedBanner from "@/components/OutdatedBanner/OutdatedBanner";
+import PageFeedback from "@/components/PageFeedback/PageFeedback";
 import styles from "./WikiPage.module.scss";
 
 export default function WikiPage() {
@@ -188,6 +189,10 @@ export default function WikiPage() {
             </Link>
           )}
         </nav>
+
+        {!loading && !error && content && categoryId && pageSlug && (
+          <PageFeedback categoryId={categoryId} pageSlug={pageSlug} />
+        )}
       </div>
 
       {!loading && !error && content && (

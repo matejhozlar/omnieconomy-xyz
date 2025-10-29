@@ -4,6 +4,6 @@ export interface ModConfig {
 }
 
 export const MOD = {
-  VERSION: "0.1.2",
-  UPDATE_DATE: "2025-10-28",
+  VERSION: "0.1.3",
+  UPDATE_DATE: "2025-10-29",
 } satisfies ModConfig;

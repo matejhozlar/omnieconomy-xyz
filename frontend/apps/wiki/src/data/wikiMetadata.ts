@@ -25,46 +25,46 @@ export const WIKI_METADATA: WikiMetadata = {
 
   pages: {
     "users/getting-started": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
       updateNotes: "Initial comprehensive guide",
     },
     "users/items-and-recipes": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
       updateNotes: "Added lottery commands",
     },
     "users/getting-money": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/commands": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/currency": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/atm-blocks": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/daily-limits": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/mod-integrations": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/enchantments": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "users/need-help": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
 
     "developers/api-overview": {
@@ -73,12 +73,16 @@ export const WIKI_METADATA: WikiMetadata = {
     },
 
     "admin/installation": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
+    },
+    "admin/commands": {
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
     "admin/telemetry": {
-      modVersion: "0.1.2",
-      lastUpdated: "2025-10-28",
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
 
     "changelogs/v0-1-0": {
@@ -92,6 +96,10 @@ export const WIKI_METADATA: WikiMetadata = {
     "changelogs/v0-1-2": {
       modVersion: "0.1.2",
       lastUpdated: "2025-10-28",
+    },
+    "changelos/v0-1-3": {
+      modVersion: "0.1.3",
+      lastUpdated: "2025-10-29",
     },
   },
 };

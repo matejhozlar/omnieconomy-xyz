@@ -115,6 +115,12 @@ export const WIKI_CATEGORIES: WikiCategory[] = [
         contentPath: "/content/admin/installation.md",
       },
       {
+        slug: "commands",
+        title: "Commands",
+        description: "List of all admin commands",
+        contentPath: "/content/admin/commands.md",
+      },
+      {
         slug: "telemetry",
         title: "Telemetry & Privacy",
         description: "Learn what telemetry does",
@@ -129,6 +135,12 @@ export const WIKI_CATEGORIES: WikiCategory[] = [
     icon: Settings,
     color: "#a855f7",
     pages: [
+      {
+        slug: "v0-1-3",
+        title: "Version 0.1.3",
+        description: "Latest release - Admin commands",
+        contentPath: "/content/changelogs/v0.1.3.md",
+      },
       {
         slug: "v0-1-2",
         title: "Version 0.1.2",

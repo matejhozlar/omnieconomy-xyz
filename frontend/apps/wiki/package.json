@@ -1,5 +1,6 @@
 {
   "name": "omnieconomy-wiki",
+  "proxy": "http://localhost:5002",
   "private": true,
   "version": "1.0.0",
   "type": "module",
