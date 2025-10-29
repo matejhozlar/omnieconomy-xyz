@@ -11,7 +11,7 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    const duration = 5000;
+    const duration = 2000;
     const interval = 50;
     const steps = duration / interval;
     const increment = 100 / steps;
@@ -25,7 +25,7 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
         setTimeout(() => {
           setIsExiting(true);
           setTimeout(onComplete, 800);
-        }, 500);
+        }, 300);
       }
       setProgress(currentProgress);
     }, interval);
@@ -57,14 +57,6 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
           </div>
           <div className={styles.progressText}>{Math.round(progress)}%</div>
         </div>
-
-        <div className={styles.loadingMessage}>
-          {progress < 25 && "Initializing economy system..."}
-          {progress >= 25 && progress < 50 && "Loading currency data..."}
-          {progress >= 50 && progress < 75 && "Setting up network..."}
-          {progress >= 75 && progress < 100 && "Finalizing setup..."}
-          {progress >= 100 && "Ready!"}
-        </div>
       </div>
 
       <div className={styles.particles}>
@@ -74,8 +66,8 @@ export default function InitialLoader({ onComplete }: InitialLoaderProps) {
             className={styles.particle}
             style={{
               left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
             }}
           />
         ))}
