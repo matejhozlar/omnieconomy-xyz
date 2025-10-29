@@ -1,13 +1,22 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Clock, TrendingUp, X, CornerDownLeft } from "lucide-react";
+import {
+  Search,
+  Clock,
+  TrendingUp,
+  X,
+  CornerDownLeft,
+  FileText,
+} from "lucide-react";
 import {
   searchWiki,
+  searchWikiSync,
   getRecentSearches,
   addRecentSearch,
   getPopularPages,
   SearchResult,
 } from "../../utils/search";
+import { preloadContentIndex } from "../../utils/searchIndexer";
 import styles from "./SearchModal.module.scss";
 
 interface SearchModalProps {
@@ -18,14 +27,17 @@ interface SearchModalProps {
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [popularPages] = useState(getPopularPages());
+  const popularPages = getPopularPages();
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchTimeoutRef = useRef<number | undefined>(undefined);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
+      preloadContentIndex();
       setRecentSearches(getRecentSearches());
       setQuery("");
       setSelectedIndex(0);
@@ -34,13 +46,36 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   }, [isOpen]);
 
   useEffect(() => {
-    if (query.trim()) {
-      const searchResults = searchWiki(query, { maxResults: 8 });
-      setResults(searchResults);
-      setSelectedIndex(0);
-    } else {
+    if (!query.trim()) {
       setResults([]);
+      setIsSearching(false);
+      return;
     }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    const syncResults = searchWikiSync(query, { maxResults: 8 });
+    setResults(syncResults);
+    setSelectedIndex(0);
+
+    setIsSearching(true);
+    searchTimeoutRef.current = setTimeout(async () => {
+      const asyncResults = await searchWiki(query, {
+        maxResults: 8,
+        includeContent: true,
+      });
+      setResults(asyncResults);
+      setSelectedIndex(0);
+      setIsSearching(false);
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [query]);
 
   const navigateToPage = useCallback(
@@ -122,6 +157,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const showRecent = !query.trim() && recentSearches.length > 0;
   const showPopular = !query.trim() && !showRecent;
 
+  const getMatchTypeBadge = (result: SearchResult) => {
+    const types = result.matches.map((m) => m.type);
+    if (types.includes("title")) return "Title";
+    if (types.includes("heading")) return "Section";
+    if (types.includes("content")) return "Content";
+    return "Description";
+  };
+
   return (
     <div className={styles.backdrop} onClick={handleBackdropClick}>
       <div className={styles.modal}>
@@ -137,6 +180,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             className={styles.input}
             autoComplete="off"
           />
+          {isSearching && (
+            <div className={styles.searchingIndicator}>
+              <div className={styles.spinner} />
+            </div>
+          )}
           <button
             className={styles.closeBtn}
             onClick={onClose}
@@ -149,7 +197,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <div className={styles.results}>
           {showResults && (
             <div className={styles.resultSection}>
-              <div className={styles.sectionTitle}>Results for "{query}"</div>
+              <div className={styles.sectionTitle}>
+                Results for "{query}"
+                {isSearching && (
+                  <span className={styles.loadingText}>
+                    {" "}
+                    (searching content...)
+                  </span>
+                )}
+              </div>
               {results.map((result, index) => {
                 const CategoryIcon = result.category.icon;
                 return (
@@ -175,10 +231,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         <span className={styles.categoryBadge}>
                           {result.category.title}
                         </span>
-                        <span className={styles.resultDescription}>
-                          {result.page.description}
+                        <span className={styles.matchTypeBadge}>
+                          <FileText size={12} />
+                          {getMatchTypeBadge(result)}
                         </span>
                       </div>
+                      {result.excerpt && (
+                        <div className={styles.resultExcerpt}>
+                          {result.excerpt}
+                        </div>
+                      )}
                     </div>
                     <CornerDownLeft className={styles.enterIcon} size={14} />
                   </button>
@@ -254,7 +316,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </div>
           )}
 
-          {query.trim() && results.length === 0 && (
+          {query.trim() && results.length === 0 && !isSearching && (
             <div className={styles.noResults}>
               <Search size={48} />
               <p>No results found for "{query}"</p>
