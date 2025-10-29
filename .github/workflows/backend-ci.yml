@@ -34,4 +34,4 @@ jobs:
         run: npm run build
 
       - name: Check server build output
-        run: ls -la src/dist
+        run: ls -la dist
