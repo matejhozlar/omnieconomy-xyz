@@ -172,7 +172,7 @@ Physical currency that exists as items in your inventory. Used for trading, shop
     </p>
     <p><strong>Features</strong></p>
     <ol>
-      <li>Deposit all bills from inventoryd</li>
+      <li>Deposit all bills from inventory</li>
       <li>Withdraw specific denomination</li>
       <li>Automatic bill optimization</li>
       <li>Keyboard navigation support</li>

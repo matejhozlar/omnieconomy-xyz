@@ -291,6 +291,15 @@ $toc-width: 240px;
     width: 100%;
     border-collapse: collapse;
     margin: token(space-6) 0;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media (max-width: 968px) {
+      font-size: 0.875rem;
+      border: 1px solid token(border);
+      border-radius: token(radius);
+    }
 
     thead {
       background: token(bg);
@@ -301,6 +310,12 @@ $toc-width: 240px;
         text-align: left;
         font-weight: 600;
         color: token(text-strong);
+        white-space: nowrap;
+
+        @media (max-width: 640px) {
+          padding: token(space-2) token(space-3);
+          font-size: 0.8125rem;
+        }
       }
     }
 
@@ -315,6 +330,11 @@ $toc-width: 240px;
 
       td {
         padding: token(space-3) token(space-4);
+
+        @media (max-width: 640px) {
+          padding: token(space-2) token(space-3);
+          font-size: 0.8125rem;
+        }
       }
     }
   }
@@ -392,6 +412,7 @@ $toc-width: 240px;
 .navTextRight {
   text-align: right;
 }
+
 .content {
   :global(.item-grid) {
     display: grid;
@@ -517,7 +538,6 @@ $toc-width: 240px;
     }
   }
 
-  // Component Cards
   :global(.component-card) {
     display: flex;
     align-items: center;
