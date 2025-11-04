@@ -90,6 +90,9 @@ COPY --from=backend-builder /app/server/dist ./dist
 
 RUN mkdir -p logs
 
+COPY --from=frontend-builder /app/frontend/apps/client/dist ./client
+COPY --from=frontend-builder /app/frontend/apps/wiki/dist ./wiki
+
 EXPOSE 5002
 
 CMD ["node", "dist/server.js"]
